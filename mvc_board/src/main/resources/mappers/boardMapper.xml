@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+	"-//mybatis.org/DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.koreate.mappers.BoardMapper">
+	<insert id="create">
+		insert into tbl_board(title, content, writer, regdate)
+		VALUES(#{title}, #{content}, #{writer}, NOW())
+	</insert>
+	<select id="listAll" resultType="net.koreate.vo.BoardVo">
+		<![CDATA[
+			SELECT * FROM tbl_board
+			WHERE bno > 0
+			ORDER BY bno DESC, regdate DESC
+		]]>
+	</select>
+	<select id="read" resultType="net.koreate.vo.BoardVo">
+		SELECT * FROM tbl_board WHERE bno = #{bno}
+	</select>
+	<update id="update">
+		UPDATE tbl_board SET title = #{title}, content = #{content} WHERE bno = #{bno}
+	</update>
+	<delete id="remove">
+		DELETE FROM tbl_board WHERE bno = #{bno}
+	</delete>
+	<select id="listCri" resultType="BoardVo">
+		SELECT * FROM tbl_board WHERE bno > 0
+		ORDER BY bno DESC, regdate DESC
+		limit #{pageStart}, #{perPageNum}
+	</select>
+	<select id="listCount" resultType="int">
+		SELECT COUNT(bno) FROM tbl_board
+	</select>
+	<update id="updateViewCnt">
+		UPDATE tbl_board SET viewcnt = viewcnt + 1 WHERE bno = #{bno}
+	</update>
+</mapper>
