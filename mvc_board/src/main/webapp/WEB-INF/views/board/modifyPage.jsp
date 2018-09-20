@@ -23,6 +23,8 @@
 							<input type="text" name="writer" class="form-control" readonly value="${boardVo.writer}"/>
 						</div>
 						<input type="hidden" name="bno" value="${boardVo.bno}"/>
+						<input type="hidden" name="page" value="${cri.page}"/>
+						<input type="hidden" name="perPageNum" value="${cri.perPageNum}"/>
 					</form>
 				</div>
 				<div class="box-footer">
@@ -41,12 +43,11 @@
 		
 		$("#btnSave").on("click", function() {
 			formObj.attr("action", "/board/modifyPage");
-			formObj.attr("method", "post");
 			formObj.submit();
 		});
 		
-		$("btnCancel").on("click" ,function() {
-			location.href="/board/listPage";
+		$("btnCancel").on("click", function() {
+			location.href="/board/listPage?page=${cri.page}&perPageNum=${cri.perPageNum}";
 		});
 	});
 </script>

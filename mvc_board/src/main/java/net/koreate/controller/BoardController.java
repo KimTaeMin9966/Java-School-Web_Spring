@@ -120,18 +120,8 @@ public class BoardController {
 		return "/board/readPage";
 	}
 	
-	@RequestMapping(value = "/removePage", method = RequestMethod.POST)
-	public String removePage(@RequestParam("bno") int bno, @ModelAttribute("cri") Criteria cri, RedirectAttributes rttr) throws Exception {
-		logger.info("RemovePagePOST Called!!!");
-		service.remove(bno);
-		rttr.addFlashAttribute("result", "SUCCESS");
-		rttr.addAttribute("page", cri.getPage());
-		rttr.addAttribute("perPageNum", cri.getPerPageNum());
-		return "redirect:/board/listPage";
-	}
-	
 	@RequestMapping(value = "/modifyPage", method = RequestMethod.GET)
-	public void modifyPageGET(@RequestParam("bno") int bno, Model model) throws Exception {
+	public void modifyPageGET(@RequestParam("bno") int bno, @ModelAttribute("cri") Criteria cri, Model model) throws Exception {
 		logger.info("ModifyPageGET Called!!!");
 		model.addAttribute("boardVo", service.read(bno));
 	}
@@ -141,10 +131,20 @@ public class BoardController {
 		logger.info("ModifyPagePOST Called!!!");
 		System.out.println(boardVo);
 		service.modify(boardVo);
-		rttr.addFlashAttribute("result", "SUCCESS");
-		rttr.addAttribute("bno", boardVo.getBno());
 		rttr.addAttribute("page", cri.getPage());
 		rttr.addAttribute("perPageNum", cri.getPerPageNum());
-		return "redirect:/board/readDetail";
+		rttr.addFlashAttribute("result", "SUCCESS");
+		return "redirect:/board/listPage";
 	}
+	
+	@RequestMapping(value = "/removePage", method = RequestMethod.POST)
+	public String removePage(@RequestParam("bno") int bno, @ModelAttribute("cri") Criteria cri, RedirectAttributes rttr) throws Exception {
+		logger.info("RemovePagePOST Called!!!");
+		service.remove(bno);
+		rttr.addAttribute("page", cri.getPage());
+		rttr.addAttribute("perPageNum", cri.getPerPageNum());
+		rttr.addFlashAttribute("result", "SUCCESS");
+		return "redirect:/board/listPage";
+	}
+	
 }
