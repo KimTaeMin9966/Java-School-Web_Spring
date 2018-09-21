@@ -40,10 +40,22 @@ public class SearchBoardController {
 	}
 
 	@RequestMapping(value = "/readPage", method = RequestMethod.GET)
-	public void readPageGET(@RequestParam("bno") int bno, @ModelAttribute("cri") SearchCriteria cri, Model model) throws Exception {
+	public String readPageGET(@RequestParam("bno") int bno, @ModelAttribute("cri") SearchCriteria cri, RedirectAttributes rttr) throws Exception {
 		logger.info("ReadPage GET Called!!!");
 		service.updateViewCnt(bno);
+		rttr.addAttribute("bno", bno);
+		rttr.addAttribute("page", cri.getPage());
+		rttr.addAttribute("perPageNum", cri.getPerPageNum());
+		rttr.addAttribute("searchType", cri.getSearchType());
+		rttr.addAttribute("keyword", cri.getKeyword());
+		return "redirect:/sboard/readDetail";
+	}
+	
+	@RequestMapping(value = "/readDetail", method = RequestMethod.GET)
+	public String readDetail(@ModelAttribute("bno") int bno, @ModelAttribute("cri") SearchCriteria cri, Model model) throws Exception {
+		logger.info("ReadDetail GET Called!!!"); logger.debug("bno : " + bno);
 		model.addAttribute("boardVo", service.read(bno));
+		return "/sboard/readPage";
 	}
 	
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
