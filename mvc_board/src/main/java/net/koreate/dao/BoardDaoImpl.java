@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import net.koreate.vo.BoardVo;
 import net.koreate.vo.Criteria;
+import net.koreate.vo.SearchCriteria;
 
 @Repository
 public class BoardDaoImpl implements BoardDao {
@@ -57,6 +58,16 @@ public class BoardDaoImpl implements BoardDao {
 	@Override
 	public void updateViewCnt(int bno) throws Exception {
 		session.update(namespace + ".updateViewCnt", bno);
+	}
+
+	@Override
+	public List<BoardVo> listSearch(SearchCriteria cri) throws Exception {
+		return session.selectList(namespace + ".listSearch", cri);
+	}
+
+	@Override
+	public int listSearchCount(SearchCriteria cri) throws Exception {
+		return session.selectOne(namespace + ".listSearchCount", cri);
 	}
 
 }

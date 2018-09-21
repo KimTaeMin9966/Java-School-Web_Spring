@@ -9,9 +9,9 @@
 <title>Exception 발생</title>
 </head>
 <body>
-	<h1>${exception.getmessage()}</h1>
+	<h1>${exception.getMessage()}</h1>
 	<ul>
-		<c:forEach var="stack" items="${exceptiongetstackTrace()}">
+		<c:forEach var="stack" items="${exception.getStackTrace()}">
 			<li>${stack.toString()}</li>
 		</c:forEach>
 	</ul>

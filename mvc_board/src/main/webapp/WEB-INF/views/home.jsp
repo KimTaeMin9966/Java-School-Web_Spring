@@ -12,6 +12,7 @@
 				<a href="/board/listAll" class="btn btn-primary">전체글목록</a>
 				<a href="/board/listCri" class="btn btn-primary">전체CRI목록</a>
 				<a href="/board/listPage" class="btn btn-primary">Paging</a>
+				<a href="/sboard/list" class="btn btn-primary">검색게시판</a>
 			</div>
 		</div>
 	</div>

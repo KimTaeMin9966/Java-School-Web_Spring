@@ -44,8 +44,8 @@
 			formObj.submit();
 		});
 		
-		$("btnCancel").on("click" ,function() {
-			location.href="/board/listAll";
+		$("#btnCancel").on("click" ,function() {
+			location.href = "/board/listAll";
 		});
 	});
 </script>

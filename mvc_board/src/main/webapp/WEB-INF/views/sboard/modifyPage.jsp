@@ -25,6 +25,8 @@
 						<input type="hidden" name="bno" value="${boardVo.bno}"/>
 						<input type="hidden" name="page" value="${cri.page}"/>
 						<input type="hidden" name="perPageNum" value="${cri.perPageNum}"/>
+						<input type="hidden" name="searchType" value="${cri.searchType}"/>
+						<input type="hidden" name="keyword" value="${cri.keyword}"/>
 					</form>
 				</div>
 				<div class="box-footer">
@@ -42,12 +44,14 @@
 		console.log(formObj);
 		
 		$("#btnSave").on("click", function() {
-			formObj.attr("action", "/board/modifyPage");
+			formObj.attr("action", "/sboard/modifyPage");
 			formObj.submit();
 		});
 		
 		$("#btnCancel").on("click", function() {
-			location.href = "/board/listPage?page=${cri.page}&perPageNum=${cri.perPageNum}";
+			location.href = "/sboard/list?page=${cri.page}&perPageNum=${cri.perPageNum}"
+					+ "&searchType=${cri.searchType}"
+					+ "&keyword=${cri.keyword}";
 		});
 	});
 </script>

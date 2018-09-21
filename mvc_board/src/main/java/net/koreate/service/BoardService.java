@@ -4,6 +4,7 @@ import java.util.List;
 
 import net.koreate.vo.BoardVo;
 import net.koreate.vo.Criteria;
+import net.koreate.vo.SearchCriteria;
 
 public interface BoardService {
 
@@ -15,5 +16,7 @@ public interface BoardService {
 	public List<BoardVo> listCriteria(Criteria cri) throws Exception;
 	public int listCountCriteria() throws Exception;
 	public void updateViewCnt(int bno) throws Exception;
+	public List<BoardVo> listSearchCriteria(SearchCriteria cri) throws Exception;
+	public int listSearchCount(SearchCriteria cri) throws Exception;
 
 }
