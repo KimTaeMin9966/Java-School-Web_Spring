@@ -5,11 +5,12 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Repository;
 
+import net.koreate.vo.Search;
 import net.koreate.vo.replyBoardVo;
 
-@Service
+@Repository
 public class replyBoardDaoImpl implements replyBoardDao {
 	
 	@Inject
@@ -40,6 +41,21 @@ public class replyBoardDaoImpl implements replyBoardDao {
 	@Override
 	public void modify(replyBoardVo VO) throws Exception {
 		session.update(namespace + ".update", VO);
+	}
+
+	@Override
+	public void updateViewCnt(int bno) throws Exception {
+		session.update(namespace + ".updateViewCnt", bno);
+	}
+
+	@Override
+	public List<replyBoardVo> listSearch(Search cri) throws Exception {
+		return session.selectList(namespace + ".listSearch", cri);
+	}
+
+	@Override
+	public void reply(replyBoardVo VO) throws Exception {
+		session.insert(namespace + ".reply", VO);
 	}
 
 }

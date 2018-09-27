@@ -11,6 +11,8 @@
 				<div class="box-body">
 					<form id="readForm" method="post">
 						<input type="hidden" name="bno" value="${reBoardVO.bno}"/>
+						<input type="hidden" name="searchType" value="${cri.searchType}"/>
+						<input type="hidden" name="keyword" value="${cri.keyword}"/>
 					</form>
 					<div class="form-group">
 						<label>TITLE</label>
@@ -48,9 +50,7 @@
 		});
 		
 		$(".btn-warning").on("click", function() {
-			formObj.attr("action", "/replyboard/reply");
-			formObj.attr("method", "get");
-			formObj.submit();
+			location.href = "/replyboard/reply?bno=${bno}";
 		});
 		
 		$(".btn-danger").on("click", function() {
@@ -59,7 +59,9 @@
 		});
 		
 		$(".btn-primary").on("click", function() {
-			location.href = "/replyboard/listShow";
+			formObj.attr("action", "/replyboard/listShow");
+			formObj.attr("method", "get");
+			formObj.submit();
 		});
 	});
 </script>

@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 
 import net.koreate.dao.replyBoardDao;
+import net.koreate.vo.Search;
 import net.koreate.vo.replyBoardVo;
 
 @Service
@@ -38,6 +39,21 @@ public class replyBoardServiceImpl implements replyBoardService {
 	@Override
 	public void modify(replyBoardVo VO) throws Exception {
 		dao.modify(VO);
+	}
+
+	@Override
+	public void updateViewCnt(int bno) throws Exception {
+		dao.updateViewCnt(bno);
+	}
+
+	@Override
+	public List<replyBoardVo> listSearch(Search cri) throws Exception {
+		return dao.listSearch(cri);
+	}
+
+	@Override
+	public void reply(replyBoardVo VO) throws Exception {
+		dao.reply(VO);
 	}
 
 }
