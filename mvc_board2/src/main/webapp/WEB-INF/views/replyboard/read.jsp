@@ -50,7 +50,9 @@
 		});
 		
 		$(".btn-warning").on("click", function() {
-			location.href = "/replyboard/reply?bno=${bno}";
+			formObj.attr("action", "/replyboard/reply");
+			formObj.attr("method", "get");
+			formObj.submit();
 		});
 		
 		$(".btn-danger").on("click", function() {

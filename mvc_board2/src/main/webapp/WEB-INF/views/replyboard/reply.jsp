@@ -28,6 +28,8 @@
 					<input type="hidden" name="origin" value="${reBoardVO.bno}"/>
 					<input type="hidden" name="depth" value="${reBoardVO.depth + 4}"/>
 					<input type="hidden" name="seq" value="${reBoardVO.seq + 4}"/>
+					<input type="hidden" name="searchType" value="${cri.searchType}"/>
+					<input type="hidden" name="keyword" value="${cri.keyword}"/>
 				</form>
 				<div class="box-footer">
 					<input type="button" id="btnSave" class="btn btn-warning" value="SAVE"/>

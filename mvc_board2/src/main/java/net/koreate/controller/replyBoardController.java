@@ -94,17 +94,23 @@ public class replyBoardController {
 	}
 
 	@RequestMapping(value = "/reply", method = RequestMethod.GET)
-	public void replyGET(@RequestParam("bno") int bno, Model model) throws Exception {
+	public void replyGET(@RequestParam("bno") int bno,
+			@ModelAttribute("cri") Search cri,
+			Model model) throws Exception {
 		logger.info("ReplyGET Called!!!");
 		model.addAttribute("reBoardVO", service.read(bno));
 	}
 
 	@RequestMapping(value = "/reply", method = RequestMethod.POST)
-	public String replyPOST(replyBoardVo VO, RedirectAttributes rttr) throws Exception {
+	public String replyPOST(replyBoardVo VO,
+			@ModelAttribute("cri") Search cri,
+			RedirectAttributes rttr) throws Exception {
 		logger.info("ReplyPOST Called!!!");
 		System.out.println(VO);
 		
 		service.reply(VO);
+		rttr.addAttribute("searchType", cri.getSearchType());
+		rttr.addAttribute("keyword", cri.getKeyword());
 		rttr.addFlashAttribute("result", "SUCCESS");
 		return "redirect:/replyboard/listShow";
 	}
