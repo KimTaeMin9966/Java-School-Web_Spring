@@ -4,6 +4,32 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="net.koreate.dao.BoardDao">
+	<sql id="search">
+		<if test="searchType != null">
+			<if test="searchType == 't'.toString()">
+				AND title LIKE CONCAT('%', #{keyword}, '%')
+			</if>
+			<if test="searchType == 'c'.toString()">
+				AND content LIKE CONCAT('%', #{keyword}, '%')
+			</if>
+			<if test="searchType == 'w'.toString()">
+				AND writer LIKE CONCAT('%', #{keyword}, '%')
+			</if>
+			<if test="searchType == 'tc'.toString()">
+				AND (title LIKE CONCAT('%', #{keyword},'%')
+				OR content LIKE CONCAT('%', #{keyword},'%'))
+			</if>
+			<if test="searchType == 'cw'.toString()">
+				AND (writer LIKE CONCAT('%', #{keyword}, '%')
+				OR content LIKE CONCAT('%', #{keyword}, '%'))
+			</if>
+			<if test="searchType == 'tcw'.toString()">
+				AND (writer LIKE CONCAT('%', #{keyword}, '%')
+				OR content LIKE CONCAT('%', #{keyword}, '%')
+				OR title LIKE CONCAT('%', #{keyword}, '%'))
+			</if>
+		</if>
+	</sql>
 	<insert id="registerReply"
 		useGeneratedKeys="true"
 		keyProperty="bno"
@@ -15,5 +41,32 @@
 	<update id="updateOrigin">
 		UPDATE re_tbl_board SET origin = #{bno} WHERE bno = #{bno}
 	</update>
-	
+	<select id="listReplyCriteria" resultType="VO" >
+		<![CDATA[
+			SELECT * FROM re_tbl_board WHERE bno > 0
+		]]>
+		<include refid="search"></include>
+		ORDER BY origin DESC, seq ASC
+		LIMIT #{pageStart}, #{perPageNum}
+	</select>
+	<select id="listReplyCount" resultType="int">
+		<![CDATA[
+			SELECT COUNT(*) FROM re_tbl_board WHERE bno > 0
+		]]>
+		<include refid="search"></include>
+	</select>
+	<update id="updateCnt">
+		UPDATE re_tbl_board SET viewcnt = viewcnt + 1 WHERE bno = #{bno}
+	</update>
+	<select id="readReply" resultType="VO">
+		SELECT * FROM re_tbl_board WHERE bno = #{bno}
+	</select>
+	<update id="updateReply">
+		UPDATE re_tbl_board SET seq = seq + 1
+		WHERE origin = #{origin} AND seq > #{seq}
+	</update>
+	<insert id="replyRegister">
+		INSERT INTO re_tbl_board(title, content, writer, origin, depth, seq)
+		VALUES(#{title}, #{content}, #{writer}, #{origin}, #{depth}, #{seq})
+	</insert>
 </mapper>

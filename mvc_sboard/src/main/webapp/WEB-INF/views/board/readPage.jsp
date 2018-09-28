@@ -19,8 +19,7 @@
 					</form>
 					<div class="form-group">
 						<label>TITLE</label>
-						<input type="text" class="form-control"
-						 readonly value="${boardVo.title}"/>
+						<input type="text" class="form-control" readonly value="${boardVo.title}"/>
 					</div>
 					<div class="form-group">
 						<label>CONTENT</label>
@@ -28,14 +27,14 @@
 					</div>
 					<div class="form-group">
 						<label>WRITER</label>
-						<input type="text" class="form-control"
-						 readonly value="${boardVo.writer}"/>
+						<input type="text" class="form-control" readonly value="${boardVo.writer}"/>
 					</div>
 				</div>
 				<div class="box-footer">
 					<input type="button" class="btn btn-warning" value="MODIFY"/>
 					<input type="button" class="btn btn-danger" value="DELETE"/>
 					<input type="button" class="btn btn-primary" value="LIST"/>
+					<input type="button" class="btn btn-default" value="REPLY"/>
 				</div>
 			</div>
 		</div>
@@ -47,23 +46,28 @@
 		var formObj = $("#readForm");
 		console.log(formObj);
 		
-		$(".btn-warning").on("click",function(){
-			formObj.attr("action","/sboard/modifyPage");
-			formObj.attr("method","get");
+		$(".btn-warning").on("click", function() {
+			formObj.attr("action", "/board/modifyPage");
+			formObj.attr("method", "get");
 			formObj.submit();
 		});
 		
-		$(".btn-danger").on("click",function(){
-			formObj.attr("action","/sboard/removePage");
+		$(".btn-danger").on("click", function() {
+			formObj.attr("action", "/board/removePage");
+			formObj.submit();
+		});
+
+		$(".btn-primary").on("click", function() {
+			formObj.attr("action", "/board/listReply");
+			formObj.attr("method", "get");
 			formObj.submit();
 		});
 		
-		$(".btn-primary").on("click",function(){
-			formObj.attr("action","/sboard/list");
-			formObj.attr("method","get");
+		$(".btn-default").on("click", function() {
+			formObj.attr("action", "/board/replyRegister");
+			formObj.attr("method", "get");
 			formObj.submit();
 		});
-		
 	});
 </script>
 <%@include file="../include/footer.jsp"%>
