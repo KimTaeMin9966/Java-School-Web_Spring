@@ -5,6 +5,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.net.ssl.SSLEngineResult.Status;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -50,4 +54,22 @@ public class RestSampleController {
 		}
 		return maps;
 	}
+
+	@RequestMapping("/sendErrorAuth")
+	public ResponseEntity<Void> sendErrorAuth() {
+		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+	}
+
+	@RequestMapping("/sendErrorNot")
+	public ResponseEntity<List<SampleVO>> sendErrorNot() {
+		List<SampleVO> list = new ArrayList<>();
+		for (int i = 0; i < 50; i++) {
+			SampleVO VO = new SampleVO();
+			VO.setName("김태민" + i);
+			VO.setAge(20);
+			list.add(VO);
+		}
+		return new ResponseEntity<>(list, HttpStatus.NOT_FOUND);
+	}
+	
 }
