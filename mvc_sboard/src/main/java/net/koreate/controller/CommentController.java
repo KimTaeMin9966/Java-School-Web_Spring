@@ -1,6 +1,8 @@
 package net.koreate.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import net.koreate.service.CommentService;
 import net.koreate.vo.CommentVo;
+import net.koreate.vo.PageMaker;
 
 @RestController
 @RequestMapping("/comments")
@@ -69,6 +72,24 @@ public class CommentController {
 		try {
 			service.removeComment(cno);
 			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace(); entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		return entity;
+	}
+	
+	@RequestMapping(value = "/{bno}/{page}", method = RequestMethod.GET)
+	public ResponseEntity<Map<String, Object>> listPage(@PathVariable("bno") int bno, @PathVariable("page") int page) {
+		logger.info("listPageGET Called!!"); ResponseEntity<Map<String, Object>> entity = null;
+		Map<String, Object> map = new HashMap<>();
+
+		try {
+			PageMaker pageMaker = service.getPageMaker(page, bno);
+			List<CommentVo> list = service.listCommentPage(bno, pageMaker.getCri());
+			
+			map.put("pageMaker", pageMaker); map.put("list", list);
+			
+			entity = new ResponseEntity<Map<String,Object>>(map,HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace(); entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}

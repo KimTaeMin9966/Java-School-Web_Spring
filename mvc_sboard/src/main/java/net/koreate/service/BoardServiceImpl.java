@@ -19,10 +19,10 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public void registReply(ReplyBoardVo VO) throws Exception {
-		dao.registerReply(VO);
-		
 		int bno = VO.getBno();
 		dao.updateOrigin(bno);
+		
+		dao.registerReply(VO);
 	}
 
 	@Override
@@ -62,9 +62,5 @@ public class BoardServiceImpl implements BoardService {
 		VO.setSeq(seq);
 		
 		dao.replyRegister(VO);
-		
-		
-		
-		
 	}
 }
