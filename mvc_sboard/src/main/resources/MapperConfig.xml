@@ -4,11 +4,13 @@
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 	<typeAliases>
-		<typeAlias alias="VO" type="net.koreate.vo.ReplyBoardVo" />
+		<typeAlias alias="RBVO" type="net.koreate.vo.ReplyBoardVo" />
+		<typeAlias alias="CVO" type="net.koreate.vo.CommentVo" />
 	</typeAliases>
 	
 	<mappers>
 		<mapper resource="sql/boardMapper.xml" />
+		<mapper resource="sql/CommentMapper.xml" />
 	</mappers>
 </configuration>
 								

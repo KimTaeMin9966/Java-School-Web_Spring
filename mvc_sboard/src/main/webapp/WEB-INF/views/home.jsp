@@ -10,6 +10,7 @@
 					<h3 class="box-title">HOME PAGE</h3>
 				</div>
 				<a href="/board/listReply" class="btn btn-primary">검색게시판</a>
+				<a href="/test" class="btn btn-primary">TEST</a>
 			</div>
 		</div>
 	</div>

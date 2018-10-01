@@ -34,14 +34,14 @@
 		useGeneratedKeys="true"
 		keyProperty="bno"
 		keyColumn="bno"
-		parameterType="VO">
+		parameterType="RBVO">
 		INSERT INTO re_tbl_board(title, content, writer)
 		VALUES(#{title}, #{content}, #{writer})
 	</insert>
 	<update id="updateOrigin">
 		UPDATE re_tbl_board SET origin = #{bno} WHERE bno = #{bno}
 	</update>
-	<select id="listReplyCriteria" resultType="VO" >
+	<select id="listReplyCriteria" resultType="RBVO" >
 		<![CDATA[
 			SELECT * FROM re_tbl_board WHERE bno > 0
 		]]>
@@ -58,7 +58,7 @@
 	<update id="updateCnt">
 		UPDATE re_tbl_board SET viewcnt = viewcnt + 1 WHERE bno = #{bno}
 	</update>
-	<select id="readReply" resultType="VO">
+	<select id="readReply" resultType="RBVO">
 		SELECT * FROM re_tbl_board WHERE bno = #{bno}
 	</select>
 	<update id="updateReply">
