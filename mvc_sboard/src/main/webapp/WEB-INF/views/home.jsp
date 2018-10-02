@@ -11,6 +11,7 @@
 				</div>
 				<a href="/board/listReply" class="btn btn-primary">검색게시판</a>
 				<a href="/test" class="btn btn-primary">TEST</a>
+				<a href="/ex" class="btn btn-primary">EX</a>
 			</div>
 		</div>
 	</div>
