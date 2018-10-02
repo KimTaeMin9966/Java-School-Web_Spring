@@ -65,11 +65,9 @@
 			$.getJSON("/comments/all/" + bno, function(data) {
 				var str = "";
 				$(data).each(function() {
-					str += "<li data-cno='" + this.cno
-						+ "' class='commentLi'>"
+					str += "<li data-cno='" + this.cno + "' class='commentLi'>"
 						+ this.cno + ":" + this.commentText
-						+ "<button>MODIFY</button>"
-						+ "</li>";
+						+ "<button>MODIFY</button>" + "</li>";
 				});
 				$("#comments").html(str);
 			});
@@ -84,7 +82,7 @@
 			var commentAuth = $("#newCommentAuth").val();
 			
 			$.ajax({
-				type : 'post',
+				type : 'POST',
 				url : '/comments',
 				headers : {
 					"Content-Type" : "application/json",
@@ -123,7 +121,7 @@
 			var commentText = $("#commentText").val();
 			
 			$.ajax({
-				type : 'put',
+				type : 'PUT',
 				url : '/comments/' + cno,
 				headers : {
 					"Content-Type" : "application/json",
@@ -146,7 +144,7 @@
 			var cno = $(".modal-title").html();
 			
 			$.ajax({
-				type : 'delete',
+				type : 'DELETE',
 				url : '/comments/' + cno,
 				headers : {
 					"Content-Type" : "application/json",
@@ -165,7 +163,7 @@
 		
 		// CLOSE
 		$("#closeBtn").on("click", function() {
-			
+			$("#modDiv").hide("slow");
 		});
 		
 		// pageing 처리된 List
@@ -175,11 +173,9 @@
 				var str = '';
 				
 				$(data.list).each(function() {
-					str += "<li data-cno='" + this.cno
-					+ "' class='commentLi'>"
-					+ this.cno + ":" + this.commentText
-					+ "<button>MODIFY</button>"
-					+ "</li>";
+					str += "<li data-cno='" + this.cno + "' class='commentLi'>"
+						+ this.cno + ":" + this.commentText
+						+ "<button>MODIFY</button>" + "</li>";
 				});
 				$('#comments').html(str);
 				printPage(data.pageMaker);
