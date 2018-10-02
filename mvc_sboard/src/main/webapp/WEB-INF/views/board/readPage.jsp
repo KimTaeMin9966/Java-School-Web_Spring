@@ -72,7 +72,9 @@
 									<span class="bg-green">COMMENT LIST</span>
 								</li>
 							</ul>
-							<ul class="pagination"></ul>
+							<div class="text-center">
+								<ul id="pagination" class="pagination pagination-sm no-margin"></ul>
+							</div>
 						</div>
 						<div id="modifyModal" class="modal modal-primary fade" role="dialog">
 							<div class="modal-dialog">
@@ -86,7 +88,7 @@
 									</div>
 									<div class="modal-footer">
 										<button type="button" id="commentModBtn" class="btn btn-info">MODIFY</button>
-										<button type="button" id="commentDelBtn" class="btn btn-primary">DELETE</button>
+										<button type="button" id="commentDelBtn" class="btn btn-danger">DELETE</button>
 										<button type="button" class="btn btn-default" data-dismiss="modal">CLOSE</button>
 									</div>
 								</div>
@@ -158,6 +160,8 @@
 		//pageInfo : /comments/bno/page
 		$.getJSON(pageInfo, function(data) {
 			printPage(data.list, $('#commentDiv'), $('#template'));
+			//printPaging(data.pageMaker, $("#pagination"));
+			$("#modifyModal").modal("hide");
 		});
 	}
 	
@@ -165,11 +169,31 @@
 		var template = Handlebars.compile(templateObj.html());
 		var html = template(commentData);
 		
-		$('.commentLi').remove();
-		target.after(html);
+		//$('.commentLi').remove();
+		//target.after(html);
+		target.parent().append(html);
+	}
+	
+	var printPaging = function(pageMaker, target) {
+		var str = "";
+		
+		if(pageMaker.prev) {
+			str+= "<li><a href='" + (pageMaker.startPage - 1) + "'> << </a></li>";
+		}
+		
+		for(var i = pageMaker.startPage, len = pageMaker.endPage; i<= len; i++) {
+			var strClass = (pageMaker.cri.page == i) ? 'class=active' : '';
+			str+= "<li " + strClass + "><a href='" + i + "'>" + i + "</a></li>";
+		}			
+		
+		if(pageMaker.next) {
+			str+= "<li><a href='" + (pageMaker.endPage + 1 ) + "'> >> </a></li>";
+		}
+		target.html(str);
 	}
 	
 	var bno = ${boardVo.bno};
+	var commentPage = 1;
 	
 	$('#commentDiv').on('click', function() {
 		if($(".timeline li").size() > 1) {
@@ -200,7 +224,6 @@
 			success : function(result) {
 				if(result == "SUCCESS") {
 					alert("등록 완료");
-					commentPage = 1;
 					
 					var pageInfo = "/comments/" + bno + "/" + commentPage;
 					getPage(pageInfo);
@@ -216,6 +239,72 @@
 		var comment = $(this);
 		$(".modal-title").html(comment.attr("data-cno"));
 		$("#commentText").val(comment.find('.timeline-body').text());
+	});
+	
+	$('#commentModBtn').on('click', function() {
+		var cno = $(".modal-title").html();
+		var commentText = $("#commentText").val();
+		
+		$.ajax({
+			type: 'put',
+			url : '/comments/' + cno,
+			headers : {
+				"Content-Type" : "application/json",
+				"X-HTTP-Method-Override": "PUT"
+			},
+			dataType : "text",
+			data : JSON.stringify({commentText : commentText}),
+			success : function(result){
+				if(result == "SUCCESS") {
+					alert("작업 성공");
+					
+					var pageInfo = "/comments/" + bno + "/" + commentPage;
+					getPage(pageInfo);
+				}
+			}
+		});
+	});
+	
+	$('#commentDelBtn').on('click', function() {
+		var cno = $(".modal-title").html();
+		
+		$.ajax({
+			type: 'delete',
+			url : '/comments/' + cno,
+			headers : {
+				"Content-Type" : "application/json",
+				"X-HTTP-Method-Override": "DELETE"
+			},
+			dataType : "text",
+			data : JSON.stringify({commentText : commentText}),
+			success : function(result){
+				if(result == "SUCCESS") {
+					alert("작업 성공");
+					
+					var pageInfo = "/comments/" + bno + "/" + commentPage;
+					getPage(pageInfo);
+				}
+			}
+		});
+	});
+	
+	$(".pagination").on("click", "li a", function(event) {
+		event.preventDefault();
+		commentPage = $(this).attr("href");
+		getPage("/comments/" + bno + "/" + commentPage);
+	});
+	
+	$(window).scroll(function() {
+		var dh = $(document).height();
+		var wt = $(window).scrollTop();
+		var wh = $(window).height();
+		
+		if((wt + wh) > (dh - 10)) {
+			if($('.timeline li').size() <= 1) return;
+			commentPage++;
+			var pageInfo = "/comments/" + bno + "/" + commentPage;
+			getPage(pageInfo);
+		}
 	});
 </script>
 <%@include file="../include/footer.jsp"%>
