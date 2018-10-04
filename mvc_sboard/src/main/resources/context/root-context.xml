@@ -14,22 +14,19 @@
 	<context:property-placeholder location="/WEB-INF/properties/*.properties"/>
 <!-- 	<util:properties id="db" location="/WEB-INF/properties/*.properties"/> -->
 	
-	<bean id="dataSource" 
-	class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="${jdbc.driver}"/>
 		<property name="url" value="${jdbc.url}"/>
 		<property name="username" value="${jdbc.username}"/>
 		<property name="password" value="${jdbc.password}"/>
 	</bean>
 	
-	<bean id="sqlSessionFactory" 
-		class="org.mybatis.spring.SqlSessionFactoryBean">
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
 		<property name="configLocation" value="classpath:MapperConfig.xml"/>	
 	</bean>
 	
-	<bean id="sqlSession" 
-		class="org.mybatis.spring.SqlSessionTemplate">
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
 		<constructor-arg ref="sqlSessionFactory"></constructor-arg>
 	</bean>
 	
@@ -44,5 +41,14 @@
 		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
 		<property name="sqlSessionTemplate" ref="sqlSession" />
 	</bean>
+	
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="10485760" />
+	</bean>
+	
+	<bean id="uploadPath" class="java.lang.String">
+		<constructor-arg value="C:\\Spring\\Upload"></constructor-arg>
+	</bean>
+	
 	<context:component-scan base-package="net.koreate" />
 </beans>

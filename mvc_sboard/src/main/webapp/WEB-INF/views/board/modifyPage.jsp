@@ -46,18 +46,17 @@
 		var formObj = $("#modifyForm");
 		console.log(formObj);
 		
-		$("#btnSave").on("click",function(){
-			formObj.attr("action","/sboard/modifyPage");
+		$("#btnSave").on("click", function() {
+			formObj.attr("action", "/sboard/modifyPage");
 			formObj.submit();
 		});
 		
 		$("#btnCancel").on("click",function(){
-			location.href="/sboard/list?page=${cri.page}&"
-					+"perPageNum=${cri.perPageNum}&"
-					+"searchType=${cri.searchType}&"
-					+"keyword=${cri.keyword}";
+			location.href = "/sboard/list?page=${cri.page}&"
+					+ "perPageNum=${cri.perPageNum}&"
+					+ "searchType=${cri.searchType}&"
+					+ "keyword=${cri.keyword}";
 		});
-		
 	});
 </script>
 <%@include file="../include/footer.jsp"%>
