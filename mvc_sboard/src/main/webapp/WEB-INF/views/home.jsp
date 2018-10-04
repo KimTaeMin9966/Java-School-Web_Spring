@@ -13,6 +13,7 @@
 				<a href="/test" class="btn btn-primary">TEST</a>
 				<a href="/ex" class="btn btn-primary">EX</a>
 				<a href="/uploadForm" class="btn btn-primary">UpoadForm</a>
+				<a href="/uploadAjax" class="btn btn-primary">uploadAjax</a>
 			</div>
 		</div>
 	</div>
