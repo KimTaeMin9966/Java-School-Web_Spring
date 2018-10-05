@@ -1,10 +1,13 @@
 package net.koreate.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import net.koreate.dao.BoardDao;
 import net.koreate.vo.PageMaker;
@@ -18,11 +21,17 @@ public class BoardServiceImpl implements BoardService {
 	BoardDao dao;
 
 	@Override
+	@Transactional
 	public void registReply(ReplyBoardVo VO) throws Exception {
 		dao.registerReply(VO);
 		
-		int bno = VO.getBno();
-		dao.updateOrigin(bno);
+		/*int bno = VO.getBno();
+		dao.updateOrigin(bno);*/
+		
+		dao.updateOrigin();
+		
+		String[] files = VO.getFiles();
+		if(files != null) for(String fullName : files) dao.addAttach(fullName);
 	}
 
 	@Override
@@ -46,7 +55,8 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public ReplyBoardVo readReply(int bno) throws Exception {
-		return dao.readReply(bno);
+		ReplyBoardVo VO = dao.readReply(bno);
+		return VO;
 	}
 
 	@Override
@@ -62,5 +72,44 @@ public class BoardServiceImpl implements BoardService {
 		VO.setSeq(seq);
 		
 		dao.replyRegister(VO);
+	}
+
+	@Override
+	public List<String> getAttach(int bno) throws Exception {
+		return dao.getAttach(bno);
+	}
+
+	@Override
+	@Transactional
+	public void modify(ReplyBoardVo VO) throws Exception {
+		/*ReplyBoardVo modifyVO = dao.readReply(VO.getBno());
+		dao.modifyFiles(modifyVO);
+
+
+		String[] files = VO.getFiles();
+		if(files != null) for(String fullName : files) dao.updateFiles(fullName, VO);*/
+		System.out.println("modify : " + VO);
+		dao.update(VO);
+		
+		int bno = VO.getBno();
+		dao.deleteAttach(bno);
+		
+		String[] files = VO.getFiles();
+		
+		if(files == null) return;
+		for(String fullName : files) {
+			Map<String,Object> map = new HashMap<>();
+			map.put("bno", bno);
+			map.put("fullName", fullName);
+			dao.replaceAttach(map);
+		}
+	}
+
+	@Override
+	@Transactional
+	public void remove(int bno) throws Exception {
+		/*dao.deleteComments(bno);
+		dao.deleteFiles(bno);*/
+		dao.delete(bno);
 	}
 }

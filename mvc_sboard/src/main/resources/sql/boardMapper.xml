@@ -30,17 +30,26 @@
 			</if>
 		</if>
 	</sql>
-	<insert id="registerReply"
+	<!-- <insert id="registerReply"
 		useGeneratedKeys="true"
 		keyProperty="bno"
 		keyColumn="bno"
-		parameterType="RBVO">
+		parameterType="RBVO"> -->
+	<insert id="registerReply">
 		INSERT INTO re_tbl_board(title, content, writer)
 		VALUES(#{title}, #{content}, #{writer})
 	</insert>
 	<update id="updateOrigin">
-		UPDATE re_tbl_board SET origin = #{bno} WHERE bno = #{bno}
+		UPDATE re_tbl_board SET origin = LAST_INSERT_ID() WHERE bno = LAST_INSERT_ID()
 	</update>
+	<insert id="addAttach">
+		INSERT INTO tbl_attach(fullName, bno)
+		VALUES(#{fullName}, LAST_INSERT_ID())
+	</insert>
+	<select id="getAttach" resultType="string">
+		SELECT fullName FROM tbl_attach WHERE bno = #{bno}
+		ORDER BY regdate
+	</select>
 	<select id="listReplyCriteria" resultType="RBVO" >
 		<![CDATA[
 			SELECT * FROM re_tbl_board WHERE bno > 0
@@ -69,4 +78,32 @@
 		INSERT INTO re_tbl_board(title, content, writer, origin, depth, seq)
 		VALUES(#{title}, #{content}, #{writer}, #{origin}, #{depth}, #{seq})
 	</insert>
+	<update id="update">
+		UPDATE re_tbl_board SET title = #{title}, content = #{content} 
+		WHERE bno = #{bno}
+	</update>
+	<delete id="delete">
+		DELETE FROM re_tbl_board WHERE bno = #{bno}
+	</delete>
+	<delete id="deleteAttach">
+	 	DELETE FROM tbl_attach WHERE bno = #{bno}
+	 </delete>
+	 <insert id="replaceAttach">
+	 	INSERT INTO tbl_attach(fullName, bno)
+	 	VALUES(#{fullName}, #{bno})
+	 </insert>
+	
+	<!-- <delete id="deleteComments">
+		DELETE FROM tbl_comment WHERE bno = #{bno}
+	</delete>
+	<delete id="deleteFiles">
+		DELETE FROM tbl_attach WHERE bno = #{bno}
+	</delete>
+	<delete id="modifyFiles">
+		DELETE FROM tbl_attach WHERE bno = #{bno}
+	</delete>
+	<insert id="updateFiles">
+		INSERT INTO tbl_attach(fullName, bno)
+		VALUES(#{fullName}, #{bno})
+	</insert> -->
 </mapper>

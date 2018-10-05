@@ -103,9 +103,9 @@ public class UploadController {
 		catch (Exception e) { e.printStackTrace(); }
 		return entity;
 	}
-	
+
 	@RequestMapping(value = "/deleteFile", method = RequestMethod.POST)
-	public ResponseEntity<String> deleteFilePOST(String fileName) {
+	public ResponseEntity<String> deleteFilePOST(String fileName) throws Exception {
 		logger.info("DeleteFilePOST Called!!!");
 		ResponseEntity<String> entity = null;
 		

@@ -15,5 +15,8 @@ public interface BoardService {
 	void updateCnt(int bno) throws Exception;
 	ReplyBoardVo readReply(int bno) throws Exception;
 	void replyRegister(ReplyBoardVo VO) throws Exception;
+	void modify(ReplyBoardVo VO) throws Exception;
+	void remove(int bno) throws Exception;
+	List<String> getAttach(int bno) throws Exception;
 
 }

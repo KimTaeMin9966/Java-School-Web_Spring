@@ -98,6 +98,33 @@
 			}
 		});
 	});
+	
+	$('#registerForm').submit(function(event) {
+		event.preventDefault();
+		var target = $(this);
+		
+		var str = '';
+		$('.uploadedList .delBtn').each(function(index) {
+			str += "<input type='hidden' name='files[" + index + "]' value='" + $(this).attr('href') + "' />";
+		});
+		target.append(str);
+		target.get(0).submit();
+	});
+	
+	$(".uploadedList").on("click", '.delBtn', function(event) {
+		event.preventDefault();
+		var target = $(this);
+		
+		$.ajax({
+			type : "post",
+			url : "/deleteFile",
+			dataType : "text",
+			data : { fileName : target.attr("href") },
+			success : function(result) {
+				if(result == 'deleted') { target.closest("li").remove(); }
+			}
+		});
+	});
 </script>
 </div> <!-- end wrapper -->
 <%@include file="../include/footer.jsp" %>

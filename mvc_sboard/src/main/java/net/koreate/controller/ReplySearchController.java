@@ -9,9 +9,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import net.koreate.service.BoardService;
@@ -94,6 +96,48 @@ public class ReplySearchController {
 		
 		rttr.addFlashAttribute("result", "SUCCESS");
 		return "redirect:/board/listReply";
+	}
+
+	@RequestMapping(value = "/removePage", method = RequestMethod.POST)
+	public String removePOST(@RequestParam("bno") int bno, @ModelAttribute("cri") SearchCriteria cri, RedirectAttributes rttr) throws Exception {
+		logger.info("RemovePOST Called!!!");
+		service.remove(bno);
+		
+		rttr.addAttribute("page", cri.getPage());
+		rttr.addAttribute("perPageNum", cri.getPerPageNum());
+		rttr.addAttribute("searchType", cri.getSearchType());
+		rttr.addAttribute("keyword", cri.getKeyword());
+		rttr.addFlashAttribute("result", "SUCCESS");
+		return "redirect:/board/listReply";
+	}
+
+	@RequestMapping(value = "/modifyPage", method = RequestMethod.GET)
+	public void modifyGET(@RequestParam("bno") int bno, @ModelAttribute("cri") SearchCriteria cri, Model model) throws Exception {
+		logger.info("ModifyGET Called!!!");
+		model.addAttribute("boardVo", service.readReply(bno));
+	}
+
+	@RequestMapping(value = "/modifyPage", method = RequestMethod.POST)
+	public String modifyPOST(ReplyBoardVo VO, SearchCriteria cri, RedirectAttributes rttr) throws Exception {
+		logger.info("ModifyPOST Called!!!");
+		service.modify(VO);
+		
+		rttr.addAttribute("page", cri.getPage());
+		rttr.addAttribute("perPageNum", cri.getPerPageNum());
+		rttr.addAttribute("searchType", cri.getSearchType());
+		rttr.addAttribute("keyword", cri.getKeyword());
+		rttr.addFlashAttribute("results", "SUCCESS");
+		return "redirect:/board/listReply";
+	}
+	
+	@RequestMapping(value = "/getAttach/{bno}")
+	@ResponseBody
+	public List<String> getAttach(@PathVariable("bno") int bno) throws Exception {
+		logger.info("getAttach Called!!!");
+		
+		List<String> list = service.getAttach(bno);
+		
+		return list;
 	}
 }
 

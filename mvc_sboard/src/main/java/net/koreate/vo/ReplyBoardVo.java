@@ -1,5 +1,6 @@
 package net.koreate.vo;
 
+import java.util.Arrays;
 import java.util.Date;
 
 public class ReplyBoardVo {
@@ -13,6 +14,8 @@ public class ReplyBoardVo {
 	Date regdate;
 	Date updatedate;
 	int viewcnt;
+	
+	String[] files;
 
 	public int getBno() {
 		return bno;
@@ -93,7 +96,15 @@ public class ReplyBoardVo {
 	public void setViewcnt(int viewcnt) {
 		this.viewcnt = viewcnt;
 	}
-
+	
+	public String[] getFiles() {
+		return files;
+	}
+	
+	public void setFiles(String[] files) {
+		this.files = files;
+	}
+	
 	@Override
 	public String toString() {
 		return "ReplyBoardVo { [ bno = " + this.bno
@@ -101,12 +112,13 @@ public class ReplyBoardVo {
 				+ " ], [ " + "content = " + this.content
 				+ " ], [ " + "writer = " + this.writer 
 				+ " ], [ " + "origin = " + this.origin
-				+ " ], [ "+ "depth = " + this.depth
+				+ " ], [ " + "depth = " + this.depth
 				+ " ], [ " + "seq = " + this.seq
 				+ " ], [ " + "regdate = " + this.regdate
 				+ " ], [ " + "updatedate = " + this.updatedate
 				+ " ], [ " + "viewcnt = " + this.viewcnt
-				+ " ] }";
+				+ " ], files = { [ " + Arrays.toString(files)
+				+ " ] } }";
 	}
 
 }
