@@ -40,3 +40,4 @@ SELECT * FROM tbl_comment;
 
 ALTER TABLE tbl_comment ADD CONSTRAINT fk_board
 FOREIGN KEY(bno) REFERENCES re_tbl_board(bno);
+

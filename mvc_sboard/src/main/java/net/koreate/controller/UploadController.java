@@ -41,9 +41,8 @@ public class UploadController {
 	@RequestMapping(value = "/uploadForm", method = RequestMethod.POST)
 	public String uploadFormPOST(MultipartFile file, Model model) throws IOException {
 		logger.info("UploadFormPOST Called!!!");
-		System.out.println(file.getOriginalFilename());
-		System.out.println(file.getSize());
-		System.out.println(file.getContentType());
+		
+		System.out.println(file.getOriginalFilename() + " / " + file.getSize() + " / " + file.getContentType());
 		
 		String savedName = uploadFile(file.getOriginalFilename(), file.getBytes());
 		model.addAttribute("savedName", savedName);
@@ -70,9 +69,9 @@ public class UploadController {
 	@RequestMapping(value = "/uploadAjax", method = RequestMethod.POST, produces = "text/plain;charset=UTF-8")
 	public ResponseEntity<String> uploadAjaxPOST(MultipartFile file) throws IOException {
 		logger.info("UploadAjaxPOST Called!!!");
-		System.out.println(file.getOriginalFilename());
-		System.out.println(file.getSize());
-		System.out.println(file.getContentType());
+
+		System.out.println(file.getOriginalFilename() + " / " + file.getSize() + " / " + file.getContentType());
+		
 		return new ResponseEntity<String>(UploadFileUtils.uploadFile(file.getOriginalFilename(), uploadPath, file.getBytes()), HttpStatus.CREATED);
 	}
 	
