@@ -10,21 +10,20 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "file:src/main/webapp/WEB-INF/spring/*.xml" })
+@ContextConfiguration(locations = { "file:src/main/webapp/WEB-INF/spring/**/root-context.xml" })
 public class MybatisTest {
-
+	
 	@Inject
-	private SqlSessionFactory sqlFactory;
-
+	SqlSessionFactory ssf;
+	
 	@Test
-	public void testFactory() {
-		System.out.println(sqlFactory);
+	public void sqlSessionFactoryConntectTest() {
+		
+		try {
+			SqlSession session = ssf.openSession();
+			System.out.println("SQL SESSION 생성완료 SESSION" + session);
+		} catch (Exception e) { e.printStackTrace(); System.out.println("연결실패"); }
+		
 	}
-
-	@Test
-	public void testSession() throws Exception {
-		try (SqlSession session = sqlFactory.openSession()) { System.out.println("SQL SESSION 생성완료 SESSION : " + session); }
-		catch (Exception e) { e.printStackTrace(); }
-
-	}
+	
 }

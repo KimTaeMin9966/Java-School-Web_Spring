@@ -5,6 +5,5 @@
 <configuration>
 	<mappers>
 		<mapper resource="sql/memberMapper.xml" />
-		<mapper resource="sql/boardMapper.xml" />
 	</mappers>
 </configuration>

@@ -1,6 +1,7 @@
 package net.koreate.controller;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 
 import javax.inject.Inject;
 import javax.sql.DataSource;
@@ -15,11 +16,22 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 public class DataSourceTest {
 
 	@Inject
-	private DataSource ds;
+	DataSource ds;
 
 	@Test
-	public void testConection() throws Exception {
-		try (Connection conn = ds.getConnection()) { System.out.println("database 연결 성공 Connection : " + conn); }
-		catch (Exception e) { e.printStackTrace(); }
+	public void ConnectTest() {
+		Connection conn = null;
+
+		try {
+			conn = ds.getConnection();
+			System.out.println("database 연결성공 Connection : " + conn);
+		}
+		catch (SQLException e) { e.printStackTrace(); System.out.println("연결 실패"); }
+		finally {
+			if (conn != null) {
+				try { conn.close(); }
+				catch (SQLException e) { e.printStackTrace(); }
+			}
+		}
 	}
 }
