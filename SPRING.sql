@@ -49,3 +49,12 @@ CREATE TABLE mydata.test_member(
 	regdate TIMESTAMP NOT NULL DEFAULT NOW(),
 	updatedate TIMESTAMP NOT NULL DEFAULT NOW()
 );
+
+CREATE TABLE mydata.test_board(
+	bno INT PRIMARY KEY AUTO_INCREMENT,
+    title VARCHAR(200) NOT NULL,
+    content TEXT NOT NULL,
+    writer VARCHAR(50) NOT NULL,
+	regdate TIMESTAMP NOT NULL DEFAULT NOW(),
+    viewcnt INT DEFAULT 0
+);
