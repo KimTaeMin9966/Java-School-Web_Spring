@@ -41,3 +41,11 @@ SELECT * FROM tbl_comment;
 ALTER TABLE tbl_comment ADD CONSTRAINT fk_board
 FOREIGN KEY(bno) REFERENCES re_tbl_board(bno);
 
+CREATE TABLE mydata.test_member(
+	userid VARCHAR(50) NOT NULL,
+	userpw VARCHAR(45) NOT NULL,
+	username VARCHAR(45) NOT NULL,
+	email VARCHAR(45) NULL,
+	regdate TIMESTAMP NOT NULL DEFAULT NOW(),
+	updatedate TIMESTAMP NOT NULL DEFAULT NOW()
+);
