@@ -39,5 +39,14 @@
 		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
 		<property name="sqlSessionTemplate" ref="sqlSession" />
 	</bean>
-	 <context:component-scan base-package="net.koreate.dao"></context:component-scan>
+	
+	<!-- DB연결 -->
+	<bean class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="net.koreate.dao.BoardDao" />
+		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+		<property name="sqlSessionTemplate" ref="sqlSession" />
+	</bean>
+	
+	 <context:component-scan base-package="net.koreate.service" />
+	 <context:component-scan base-package="net.koreate.dao" />
 </beans>

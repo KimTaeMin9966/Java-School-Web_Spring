@@ -9,6 +9,6 @@
 <body>
 	<h1>HOME PAGE</h1>
 	<a href="/board/register">글쓰기</a>
-	<a href="/board/list">글쓰기</a>
+	<a href="/board/listPage">전체글목록</a>
 </body>
 </html>

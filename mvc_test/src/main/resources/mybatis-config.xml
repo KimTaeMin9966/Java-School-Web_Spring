@@ -3,7 +3,12 @@
 	"-//mybatis.org//DTD Config 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
+	<typeAliases>
+		<typeAlias alias="BVO" type="net.koreate.vo.BoardVo" />
+		<typeAlias alias="MVO" type="net.koreate.vo.MemberVo" />
+	</typeAliases>
 	<mappers>
+		<mapper resource="sql/boardMapper.xml" />
 		<mapper resource="sql/memberMapper.xml" />
 	</mappers>
 </configuration>

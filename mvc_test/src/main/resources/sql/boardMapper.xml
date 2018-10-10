@@ -8,7 +8,7 @@
 		INSERT INTO test_board(title, content, writer)
 		VALUES(#{title}, #{content}, #{writer})
 	</insert>
-	<select id="read" resultType="net.koreate.vo.BoardVo">
+	<select id="read" resultType="BVO">
 		SELECT bno, title, content, writer, regdate, viewcnt FROM test_board
 		WHERE bno = #{bno}
 	</select>
@@ -23,14 +23,14 @@
 	<!-- Mybatis 사용시 쿼리문에 문자열 비교연산자나 부등호를 처리할 때가있습니다. 그러면 < 와 같은 기호를 괄호인지 아니면 
 		비교연산자 인지 확인이 되지않아요. 이외에도 특수문자 사용하는데 제한이있습니다. 대략 이런식으로요 이럴때 사용한것이 <![CDATA[ 
 		입니다. CDATA 안에 들어가는 문장을 문자열로 인식하게 합니다. -->
-	<select id="listAll" resultType="net.koreate.vo.BoardVo">
+	<select id="listAll" resultType="BVO">
 		 <![CDATA[
 			SELECT bno, title, content, writer, regdate, viewcnt FROM test_board
 			WHERE bno > 0
 			ORDER BY bno DESC, regdate DESC
 		 ]]>
 	</select>
-	<select id="listPage" resultType="net.koreate.vo.BoardVo">
+	<select id="listPage" resultType="BVO">
 		<![CDATA[
 			SELECT bno, title, content, writer, regdate, viewcnt FROM test_board
 			WHERE bno > 0
@@ -38,16 +38,16 @@
 			LIMIT #{page}, 10
 		]]>
 	</select>
-	<select id="listCriteria" resultType="net.koreate.vo.BoardVo">
+	<select id="listCriteria" resultType="BVO">
 		<![CDATA[
-			SELECT bno, title, content, writer, regdate, viewcnt FROM test_board
+			SELECT * FROM test_board
 			WHERE bno > 0
 			ORDER BY bno DESC, regdate DESC
 			LIMIT #{page}, #{perPageNum}
 		]]>
 	</select>
 	<update id="updateCnt">
-		UPDATE test_board SET viewcnt = viewcnt+1 WHERE bno = #{bno}
+		UPDATE test_board SET viewcnt = viewcnt + 1 WHERE bno = #{bno}
 	</update>
 	<select id="listCountCriteria" resultType="int">
 		<![CDATA[
