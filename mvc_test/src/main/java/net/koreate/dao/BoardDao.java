@@ -9,7 +9,7 @@ public interface BoardDao {
 
 	void create(BoardVo vo) throws Exception;
 	List<BoardVo> listCriteria(Criteria cri) throws Exception;
-	int listCountCriteria(Criteria cri) throws Exception;
+	int listCountCriteria() throws Exception;
 	
 	// 2018/10/10
 	List<BoardVo> listAll() throws Exception;

@@ -17,15 +17,15 @@ public class PageMaker {
 	Criteria cri; // 페이지 정보
 
 	public void calData() {
-		endPage = (int) Math.ceil(cri.getPage() / (double) displayPageNum) * displayPageNum;
+		endPage = (int) Math.ceil(cri.getPage() / (double) displayPageNum) * displayPageNum; //Math.ceil == 소수점 자리 올림 
 		startPage = (endPage - displayPageNum) + 1;
 
 		int temp = (int) Math.ceil(totalCount / (double) cri.getPerPageNum());
 
 		if (endPage > temp) { endPage = temp; }
 		
-		prev = startPage == 1 ? false : true;
-		next = endPage * cri.getPerPageNum() >= totalCount ? false : true;
+		prev = (startPage == 1) ? false : true;
+		next = (endPage * cri.getPerPageNum() >= totalCount) ? false : true;
 	}
 
 	public int getTotalCount() {
@@ -92,17 +92,9 @@ public class PageMaker {
 				.build();
 		return uc.toString();
 	}
-	
-	public String makeSearch(int page) {
-		UriComponents uc = UriComponentsBuilder.newInstance()
-				.queryParam("page", page)
-				.queryParam("perPageNum", cri.getPerPageNum())
-				.build();
-		return uc.toString();
-	}
-	
+
 	private String encoding(String keyword) {
-		if(keyword == null || keyword.trim().length() == 0 ) return "";
+		if(keyword == null || keyword.trim().length() == 0 ) { return ""; }
 		try {
 			return URLEncoder.encode(keyword, "UTF-8");
 		} catch (UnsupportedEncodingException e) { e.printStackTrace(); return ""; }

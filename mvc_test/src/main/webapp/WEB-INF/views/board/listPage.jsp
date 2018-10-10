@@ -58,7 +58,7 @@
 			<tr>
 				<td>${boardVo.bno}</td>
 				<td>
-					<a href="/board/read${pageMaker.makeSearch(pageMaker.cri.page)}&bno=${boardVo.bno}">
+					<a href="/board/read${pageMaker.makeQuery(pageMaker.cri.page)}&bno=${boardVo.bno}">
 						${boardVo.title}
 					</a>
 				</td>
@@ -77,17 +77,17 @@
 			<ul class="pagination">
 				<c:if test="${pageMaker.prev}">
 					<li>
-						<a href="listPage${pageMaker.makeSearch(pageMaker.startPage - 1)}">&laquo;</a>
+						<a href="listPage${pageMaker.makeQuery(pageMaker.startPage - 1)}">&laquo;</a>
 					</li>
 				</c:if>
 				<c:forEach var="i" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
 					<li <c:out value="${(pageMaker.cri.page == i) ? 'class=active' : ''}"/>>
-						<a href="listPage${pageMaker.makeSearch(i)}">${i}</a>
+						<a href="listPage${pageMaker.makeQuery(i)}">${i}</a>
 					</li>
 				</c:forEach>
 				<c:if test="${pageMaker.next}">
 					<li>
-						<a href="listPage${pageMaker.makeSearch(pageMaker.endPage + 1)}">&raquo;</a>
+						<a href="listPage${pageMaker.makeQuery(pageMaker.endPage + 1)}">&raquo;</a>
 					</li>
 				</c:if>
 			</ul>

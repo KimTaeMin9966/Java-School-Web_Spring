@@ -31,7 +31,7 @@ public class BoardServiceImpl implements BoardService {
 	public PageMaker getPageMaker(Criteria cri) throws Exception {
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(cri);
-		int cnt = dao.listCountCriteria(cri);
+		int cnt = dao.listCountCriteria();
 		pageMaker.setTotalCount(cnt);
 		return pageMaker;
 	}

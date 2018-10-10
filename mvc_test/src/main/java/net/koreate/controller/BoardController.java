@@ -79,6 +79,7 @@ public class BoardController {
 		model.addAttribute("list", list);
 		
 		PageMaker pageMaker = service.getPageMaker(cri);
+		System.out.println(pageMaker);
 		model.addAttribute(pageMaker);
 	}
 	
