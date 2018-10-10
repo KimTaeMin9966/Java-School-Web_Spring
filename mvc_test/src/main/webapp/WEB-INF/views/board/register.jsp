@@ -8,13 +8,10 @@
 </head>
 <body>
 	<h1>REGISTER BOARD</h1>
-	<form action="register" method="post">
-		<label>Title</label>
-		<input type="text" name="title"><br/>
-		<label>Content</label>
-		<textarea cols="25" name="Content"></textarea><br/>
-		<label>Writer</label>
-		<input type="text" name="Writer"><br/>
+	<form action="registerBoard" method="post">
+		TITLE <input type="text" name="title"><br/>
+		CONTENT <textarea rows="10" cols="30" name="content"></textarea><br/>
+		WRITER <input type="text" name="writer"><br/>
 		<input type="submit" value="확인" />
 	</form>
 </body>

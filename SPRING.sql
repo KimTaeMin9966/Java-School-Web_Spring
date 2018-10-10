@@ -47,8 +47,11 @@ CREATE TABLE mydata.test_member(
 	username VARCHAR(45) NOT NULL,
 	email VARCHAR(45) NULL,
 	regdate TIMESTAMP NOT NULL DEFAULT NOW(),
-	updatedate TIMESTAMP NOT NULL DEFAULT NOW()
+	updatedate TIMESTAMP NOT NULL DEFAULT NOW(),
+    PRIMARY KEY(userid)
 );
+
+DROP TABLE test_member;
 
 CREATE TABLE mydata.test_board(
 	bno INT PRIMARY KEY AUTO_INCREMENT,
@@ -58,3 +61,9 @@ CREATE TABLE mydata.test_board(
 	regdate TIMESTAMP NOT NULL DEFAULT NOW(),
     viewcnt INT DEFAULT 0
 );
+
+DROP TABLE test_board;
+
+INSERT INTO mydata.test_board(title, content, writer)
+SELECT title, content, writer FROM mydata.test_board;
+

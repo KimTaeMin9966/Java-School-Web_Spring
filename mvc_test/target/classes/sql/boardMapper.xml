@@ -9,7 +9,7 @@
 		VALUES(#{title}, #{content}, #{writer})
 	</insert>
 	<select id="read" resultType="BVO">
-		SELECT bno, title, content, writer, regdate, viewcnt FROM test_board
+		SELECT * FROM test_board
 		WHERE bno = #{bno}
 	</select>
 	<update id="update">
@@ -25,17 +25,17 @@
 		입니다. CDATA 안에 들어가는 문장을 문자열로 인식하게 합니다. -->
 	<select id="listAll" resultType="BVO">
 		 <![CDATA[
-			SELECT bno, title, content, writer, regdate, viewcnt FROM test_board
+			SELECT * FROM test_board
 			WHERE bno > 0
 			ORDER BY bno DESC, regdate DESC
 		 ]]>
 	</select>
 	<select id="listPage" resultType="BVO">
 		<![CDATA[
-			SELECT bno, title, content, writer, regdate, viewcnt FROM test_board
+			SELECT * FROM test_board
 			WHERE bno > 0
 			ORDER BY bno DESC, regdate DESC
-			LIMIT #{page}, 10
+			LIMIT #{pageStart}, 10
 		]]>
 	</select>
 	<select id="listCriteria" resultType="BVO">
@@ -43,7 +43,7 @@
 			SELECT * FROM test_board
 			WHERE bno > 0
 			ORDER BY bno DESC, regdate DESC
-			LIMIT #{page}, #{perPageNum}
+			LIMIT #{pageStart}, #{perPageNum}
 		]]>
 	</select>
 	<update id="updateCnt">

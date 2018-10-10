@@ -18,8 +18,8 @@ public class BoardServiceImpl implements BoardService {
 	BoardDao dao;
 
 	@Override
-	public void create(BoardVo VO) throws Exception {
-		dao.create(VO);
+	public void create(BoardVo vo) throws Exception {
+		dao.create(vo);
 	}
 
 	@Override
@@ -34,6 +34,27 @@ public class BoardServiceImpl implements BoardService {
 		int cnt = dao.listCountCriteria(cri);
 		pageMaker.setTotalCount(cnt);
 		return pageMaker;
+	}
+
+	// 2018/10/10
+	@Override
+	public List<BoardVo> listAll() throws Exception {
+		return dao.listAll();
+	}
+
+	@Override
+	public BoardVo read(int bno) throws Exception {
+		return dao.read(bno);
+	}
+
+	@Override
+	public void update(BoardVo vo) throws Exception {
+		dao.update(vo);
+	}
+
+	@Override
+	public void delete(int bno) throws Exception {
+		dao.delete(bno);
 	}
 
 }
