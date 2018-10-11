@@ -66,4 +66,3 @@ DROP TABLE test_board;
 
 INSERT INTO mydata.test_board(title, content, writer)
 SELECT title, content, writer FROM mydata.test_board;
-
