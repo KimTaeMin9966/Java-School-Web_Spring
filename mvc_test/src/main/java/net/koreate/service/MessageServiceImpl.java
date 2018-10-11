@@ -8,6 +8,7 @@ import javax.inject.Inject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import net.koreate.dao.MessageDao;
 import net.koreate.dao.PointDao;
@@ -25,6 +26,7 @@ public class MessageServiceImpl implements MessageService {
 	PointDao pDao;
 
 	@Override
+	@Transactional
 	public void addMessage(MessageVo vo) throws Exception {
 		logger.info("addMessage Called!!!"); logger.info("VO : " + vo);
 		
@@ -40,6 +42,7 @@ public class MessageServiceImpl implements MessageService {
 	}
 
 	@Override
+	@Transactional
 	public MessageVo readMessage(String uid, int mno) throws Exception {
 		logger.info("readMessage Called!!!"); logger.info("uid : " + uid); logger.info("mno : " + mno);
 		

@@ -17,6 +17,9 @@
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd
 		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.3.xsd">
 	
+	<aop:aspectj-autoproxy />
+	<tx:annotation-driven />
+	
 	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
 		<property name="url" value="jdbc:mysql://localhost:3306/mydata?useSSL=false&amp;allowPublicKeyRetrieval=true&amp;serverTimezone=Asia/Seoul"/> 
@@ -33,7 +36,9 @@
 		<constructor-arg ref="sqlSessionFactory" />
 	</bean>
 	
-	<aop:aspectj-autoproxy />
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
 	
 	<!-- DB연결 -->
 	<bean class="org.mybatis.spring.mapper.MapperFactoryBean">
