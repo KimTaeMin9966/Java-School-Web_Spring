@@ -66,3 +66,35 @@ DROP TABLE test_board;
 
 INSERT INTO mydata.test_board(title, content, writer)
 SELECT title, content, writer FROM mydata.test_board;
+
+CREATE TABLE tbl_user (
+	uid VARCHAR(50) NOT NULL,
+	upw VARCHAR(50) NOT NULL,
+	uname VARCHAR(100) NOT NULL,
+	upoint INT NOT NULL DEFAULT 0,
+    PRIMARY KEY(uid)
+);
+
+CREATE TABLE tbl_message (
+	mno INT NOT NULL AUTO_INCREMENT,
+	targetid VARCHAR(50) NOT NULL,
+	sender VARCHAR(50) NOT NULL,
+	message TEXT NOT NULL,
+	opendate TIMESTAMP,
+	senddate TIMESTAMP NOT NULL DEFAULT NOW(),
+    PRIMARY KEY(mno)
+);
+
+ALTER TABLE tbl_message ADD CONSTRAINT fk_usertarget
+FOREIGN KEY(targetid) REFERENCES tbl_user(uid);
+
+ALTER TABLE tbl_message ADD CONSTRAINT fk_usersender
+FOREIGN KEY(sender) REFERENCES tbl_user(uid);
+
+INSERT INTO tbl_user(uid, upw, uname) VALUES
+('id001', 'id001', 'DR.STRANGE'),
+('id002', 'id002', 'IRON MAN'),
+('id003', 'id003', 'THOR'),
+('id004', 'id004', 'ANT MAN');
+
+SELECT * FROM tbl_user;
