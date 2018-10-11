@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import net.koreate.service.BoardService;
 import net.koreate.vo.BoardVo;
@@ -62,11 +63,12 @@ public class BoardController {
 	}*/
 	
 	@RequestMapping(value = "/registerBoard", method = RequestMethod.POST)
-	public String registerBoardPOST(@ModelAttribute("boardVo") BoardVo vo) throws Exception {
+	public String registerBoardPOST(@ModelAttribute("boardVo") BoardVo vo, RedirectAttributes rttr) throws Exception {
 		logger.info("RegisterBoardPOST Called!!!");
 		System.out.println(vo);
 		
-		service.create(vo);
+		String result = service.create(vo);
+		rttr.addFlashAttribute("result", result);
 		
 		return "redirect:/board/listPage";
 	}

@@ -8,7 +8,7 @@ import net.koreate.vo.PageMaker;
 
 public interface BoardService {
 
-	void create(BoardVo vo) throws Exception;
+	String create(BoardVo vo) throws Exception;
 	List<BoardVo> listCriteria(Criteria cri) throws Exception;
 	PageMaker getPageMaker(Criteria cri) throws Exception;
 	

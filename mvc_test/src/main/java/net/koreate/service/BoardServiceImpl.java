@@ -18,8 +18,13 @@ public class BoardServiceImpl implements BoardService {
 	BoardDao dao;
 
 	@Override
-	public void create(BoardVo vo) throws Exception {
-		dao.create(vo);
+	public String create(BoardVo vo) throws Exception {
+		int result = dao.create(vo);
+		String message = "";
+		
+		if(result != 0) { message = "SUCCESS"; }
+		else { message = "FAILED"; }
+		return message;
 	}
 
 	@Override

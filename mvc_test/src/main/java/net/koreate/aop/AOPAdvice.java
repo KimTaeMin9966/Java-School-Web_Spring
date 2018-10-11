@@ -12,6 +12,8 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.springframework.stereotype.Component;
 
+import net.koreate.vo.BoardVo;
+
 @Component
 @Aspect
 public class AOPAdvice {
@@ -53,7 +55,6 @@ public class AOPAdvice {
 	
 	@Around("execution(* net.koreate.service.MessageService*.readMessage(..))")
 	public Object timeLog(ProceedingJoinPoint pjp) throws Throwable {
-
 		System.out.println("-------------------------------------");
 		System.out.println("---------- Around  START ------------");
 
@@ -72,4 +73,24 @@ public class AOPAdvice {
 		return result;
 	}
 	
+	@Around("execution(* net.koreate.service.BoardService*.create(..))")
+	public Object insertCheck(ProceedingJoinPoint pjp) throws Throwable {
+		System.out.println("-------------------------------------");
+		System.out.println("---------- Around  START ------------");
+		String message = "";
+		
+		try {
+			Object[] parameters = pjp.getArgs();
+			BoardVo boardVo = (BoardVo) parameters[0];
+			//System.out.println(parameters[1]); // ERROR : java.lang.ArrayIndexOutOfBoundsException
+			System.out.println("arround : " + boardVo);
+			message = (String) pjp.proceed();
+			message = "AROUND " + message;
+		}
+		catch (Exception e) { e.printStackTrace(); message = "AROUND FAILED"; }
+		
+		System.out.println("---------- Around   END  ------------");
+		System.out.println("-------------------------------------");
+		return message;
+	}
 }

@@ -7,7 +7,7 @@ import net.koreate.vo.Criteria;
 
 public interface BoardDao {
 
-	void create(BoardVo vo) throws Exception;
+	int create(BoardVo vo) throws Exception;
 	List<BoardVo> listCriteria(Criteria cri) throws Exception;
 	int listCountCriteria() throws Exception;
 	
