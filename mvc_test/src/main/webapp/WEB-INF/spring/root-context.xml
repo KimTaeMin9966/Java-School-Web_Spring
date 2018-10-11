@@ -29,9 +29,11 @@
 		<property name="configLocation" value="classpath:/mybatis-config.xml"/>
 	</bean>
 		
-	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate" destroy-method="clearCache">
 		<constructor-arg ref="sqlSessionFactory" />
 	</bean>
+	
+	<aop:aspectj-autoproxy />
 	
 	<!-- DB연결 -->
 	<bean class="org.mybatis.spring.mapper.MapperFactoryBean">
@@ -56,11 +58,12 @@
 	
 	<!-- DB연결 -->
 	<bean class="org.mybatis.spring.mapper.MapperFactoryBean">
-		<property name="mapperInterface" value="net.koreate.dao.pointDao" />
+		<property name="mapperInterface" value="net.koreate.dao.PointDao" />
 		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
 		<property name="sqlSessionTemplate" ref="sqlSession" />
 	</bean>
 	
-	 <context:component-scan base-package="net.koreate.service" />
-	 <context:component-scan base-package="net.koreate.dao" />
+	<context:component-scan base-package="net.koreate.aop" />
+	<context:component-scan base-package="net.koreate.service" />
+	<context:component-scan base-package="net.koreate.dao" />
 </beans>

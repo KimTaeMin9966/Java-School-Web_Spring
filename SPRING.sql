@@ -98,3 +98,4 @@ INSERT INTO tbl_user(uid, upw, uname) VALUES
 ('id004', 'id004', 'ANT MAN');
 
 SELECT * FROM tbl_user;
+SELECT * FROM tbl_message;

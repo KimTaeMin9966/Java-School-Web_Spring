@@ -1,5 +1,9 @@
 package net.koreate.dao;
 
-public class PointDao {
+import java.util.Map;
 
+public interface PointDao {
+	
+	public void updatePoint(Map<String, Object> paramMap) throws Exception;
+	
 }
