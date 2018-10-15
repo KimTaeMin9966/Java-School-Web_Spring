@@ -13,8 +13,6 @@
 	var result = '${result}';
 	if(result == 'SUCCESS') {
 		alert("처리가 완료 되었습니다.");
-	} else {
-		alert("처리가 실패 되었습니다.");
 	}
 </script>
 <style type="text/css">

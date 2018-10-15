@@ -21,6 +21,31 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
+	<beans:bean id="testInterceptor" class="net.koreate.interceptor.TestInterceptor" />
+	<beans:bean id="loginInterceptor" class="net.koreate.interceptor.LoginInterceptor" />
+	<beans:bean id="authInterceptor" class="net.koreate.interceptor.AuthInterceptor" />
+	
+	<interceptors>
+		<interceptor>
+			<mapping path="/test1" />
+			<mapping path="/test2" />
+			<beans:ref bean="testInterceptor" />
+		</interceptor>
+		
+		<interceptor>
+			<!-- <mapping path="/user/login" /> -->
+			<mapping path="/user/loginPost" />
+			<beans:ref bean="loginInterceptor" />
+		</interceptor>
+		
+		<interceptor>
+			<mapping path="/**/register"/>
+			<mapping path="/board/modify"/>
+			<mapping path="/board/delete"/>
+			<beans:ref bean="authInterceptor"/>
+		</interceptor>
+	</interceptors>
+	
 	<context:component-scan base-package="net.koreate.controller" />
 	
 	

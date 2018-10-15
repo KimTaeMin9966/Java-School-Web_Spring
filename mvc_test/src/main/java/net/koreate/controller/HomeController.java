@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 /**
  * Handles requests for the application home page.
@@ -36,4 +37,20 @@ public class HomeController {
 		return "home";
 	}
 	
+	@RequestMapping(value = "/test1", method = RequestMethod.GET)
+	public String test1GET(Model model) throws Exception {
+		logger.info("Test1GET Called!!!");
+		
+		return "home";
+	}
+	
+	@RequestMapping(value = "/test2", method = RequestMethod.GET)
+	public ModelAndView test2GET(ModelAndView modelAndView) throws Exception {
+		logger.info("Test2GET Called!!!"); ModelAndView mav = new ModelAndView();
+		
+		mav.addObject("result", "test2 Job");
+		mav.setViewName("home");
+		
+		return mav;
+	}
 }

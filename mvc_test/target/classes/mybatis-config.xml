@@ -7,11 +7,13 @@
 		<typeAlias alias="BVO" type="net.koreate.vo.BoardVo" />
 		<typeAlias alias="MVO" type="net.koreate.vo.MemberVo" />
 		<typeAlias alias="MSGVO" type="net.koreate.vo.MessageVo" />
+		<typeAlias alias="UVO" type="net.koreate.vo.UserVo" />
 	</typeAliases>
 	<mappers>
 		<mapper resource="sql/boardMapper.xml" />
 		<mapper resource="sql/memberMapper.xml" />
 		<mapper resource="sql/messageMapper.xml" />
 		<mapper resource="sql/pointMapper.xml" />
+		<mapper resource="sql/userMapper.xml" />
 	</mappers>
 </configuration>
