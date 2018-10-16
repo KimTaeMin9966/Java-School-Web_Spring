@@ -6,11 +6,13 @@
 	<typeAliases>
 		<typeAlias alias="RBVO" type="net.koreate.vo.ReplyBoardVo" />
 		<typeAlias alias="CVO" type="net.koreate.vo.CommentVo" />
+		<typeAlias alias="UVO" type="net.koreate.vo.UserVo" />
 	</typeAliases>
 	
 	<mappers>
 		<mapper resource="sql/boardMapper.xml" />
 		<mapper resource="sql/CommentMapper.xml" />
+		<mapper resource="sql/userMapper.xml" />
 	</mappers>
 </configuration>
 								

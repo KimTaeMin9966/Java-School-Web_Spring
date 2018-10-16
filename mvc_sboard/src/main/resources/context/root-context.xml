@@ -29,9 +29,12 @@
 	</bean>
 	
 	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
-		<constructor-arg ref="sqlSessionFactory"></constructor-arg>
+		<constructor-arg ref="sqlSessionFactory" />
 	</bean>
 	
+	<mybatis-spring:scan base-package="net.koreate.dao" />
+	
+	<!--
 	<bean class="org.mybatis.spring.mapper.MapperFactoryBean">
 		<property name="mapperInterface" value="net.koreate.dao.BoardDao" />
 		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
@@ -44,6 +47,13 @@
 		<property name="sqlSessionTemplate" ref="sqlSession" />
 	</bean>
 	
+	<bean class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="net.koreate.dao.UserDao" />
+		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+		<property name="sqlSessionTemplate" ref="sqlSession" />
+	</bean>
+	-->
+	
 	<tx:annotation-driven />
 	
 	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
@@ -55,7 +65,7 @@
 	</bean>
 	
 	<bean id="uploadPath" class="java.lang.String">
-		<constructor-arg value="C:\\Spring\\Upload"></constructor-arg>
+		<constructor-arg value="C:\\Spring\\Upload" />
 	</bean>
 	
 	<context:component-scan base-package="net.koreate" />
