@@ -8,4 +8,16 @@
 		INSERT INTO tbl_user(uid, upw, uname)
 		VALUES(#{uid}, #{upw}, #{uname})
 	</insert>
+	<select id="getUserByID" resultType="UVO">
+		SELECT * FROM tbl_user
+		WHERE uid = #{uid}
+	</select>
+	<select id="signIn" resultType="UVO">
+		SELECT * FROM tbl_user
+		WHERE uid = #{uid} AND upw = #{upw}
+	</select>
+	<select id="getUserByUNO" resultType="UVO">
+		SELECT * FROM tbl_user
+		WHERE uno = #{uno}
+	</select>
 </mapper>

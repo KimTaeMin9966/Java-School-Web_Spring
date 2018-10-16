@@ -3,6 +3,8 @@ package net.koreate.controller;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.util.WebUtils;
 
 import net.koreate.service.BoardService;
 import net.koreate.vo.PageMaker;
@@ -45,11 +48,14 @@ public class ReplySearchController {
 	}
 
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
-	public String registerPOST(ReplyBoardVo VO) throws Exception {
-		logger.info("RegisterPOST Called!!!");
-		System.out.println(VO);
+	public String registerPOST(ReplyBoardVo VO, HttpServletRequest request) throws Exception {
+		logger.info("RegisterPOST Called!!!"); logger.info("VO : " + VO);
 		
-		service.registReply(VO);
+		Cookie signInCookie = WebUtils.getCookie(request, "signInCookie");
+		if (signInCookie != null) {
+			int uno = Integer.parseInt(signInCookie.getValue());
+			service.registReply(VO, uno);
+		}
 		return "redirect:/board/listReply";
 	}
 

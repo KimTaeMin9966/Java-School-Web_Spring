@@ -14,7 +14,7 @@
 				<a href="/ex" class="btn btn-primary">EX</a>
 				<a href="/uploadForm" class="btn btn-primary">UpoadForm</a>
 				<a href="/uploadAjax" class="btn btn-primary">uploadAjax</a>
-				<a href="/user/signIn" class="btn btn-primary">Sign In</a>
+				<!-- <a href="/user/signIn" class="btn btn-primary">Sign In</a> -->
 			</div>
 		</div>
 	</div>

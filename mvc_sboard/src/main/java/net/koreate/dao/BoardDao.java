@@ -5,10 +5,11 @@ import java.util.Map;
 
 import net.koreate.vo.ReplyBoardVo;
 import net.koreate.vo.SearchCriteria;
+import net.koreate.vo.UserVo;
 
 public interface BoardDao {
 
-	void registerReply(ReplyBoardVo VO) throws Exception;
+	void registerReply(Map<String, Object> paramMap) throws Exception;
 	void updateOrigin() throws Exception;
 	List<ReplyBoardVo> listReplyCriteria(SearchCriteria cri) throws Exception;
 	int listReplyCount(SearchCriteria cri) throws Exception;
@@ -22,5 +23,6 @@ public interface BoardDao {
 	void deleteAttach(int bno) throws Exception;
 	void replaceAttach(Map<String, Object> map) throws Exception;
 	void delete(int bno) throws Exception;
+	UserVo getUserByUNO(int uno) throws Exception;
 
 }

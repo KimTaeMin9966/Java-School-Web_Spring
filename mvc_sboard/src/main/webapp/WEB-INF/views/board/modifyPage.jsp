@@ -31,8 +31,7 @@
 						</div>
 						<div class="form-group">
 							<label>WRITER</label>
-							<input type="text" name="writer" class="form-control"
-							 readonly value="${boardVo.writer}"/>
+							<input type="text" name="writer" class="form-control" readonly value="${boardVo.writer}"/>
 						</div>
 						<div class="form-group">
 							<label>FILE DROP HERE</label>

@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-   
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
   <head>
@@ -268,14 +268,28 @@
                     </div>
                   </li>
                   <!-- Menu Footer-->
-                  <li class="user-footer">
-                    <div class="pull-left">
-                      <a href="#" class="btn btn-default btn-flat">Profile</a>
-                    </div>
-                    <div class="pull-right">
-                      <a href="#" class="btn btn-default btn-flat">Sign out</a>
-                    </div>
-                  </li>
+                  <c:choose>
+                  	<c:when test="${!empty userInfo}">
+	                  <li class="user-footer">
+	                    <div class="pull-left">
+	                      <a href="/" class="btn btn-default btn-flat">${userInfo.uname}</a>
+	                    </div>
+	                    <div class="pull-right">
+	                      <a href="/user/signOut" class="btn btn-default btn-flat">Sign Out</a>
+	                    </div>
+	                  </li>
+                  	</c:when>
+                  	<c:otherwise>
+	                  <li class="user-footer">
+	                    <div class="pull-left">
+	                      <a href="/user/signIn" class="btn btn-default btn-flat">Sign In</a>
+	                    </div>
+	                    <div class="pull-right">
+	                      <a href="/user/signUp" class="btn btn-default btn-flat">Sign Up</a>
+	                    </div>
+	                  </li>
+                  </c:otherwise>
+                  </c:choose>
                 </ul>
               </li>
               <!-- Control Sidebar Toggle Button -->
@@ -301,11 +315,12 @@
             </div>
           </div>
           <!-- search form -->
-          <form action="#" method="get" class="sidebar-form">
+         <form action="/board/listReply" method="get" class="sidebar-form">
             <div class="input-group">
-              <input type="text" name="q" class="form-control" placeholder="Search..."/>
+            	<input type="hidden" name="searchType" value="tcw"/>
+              <input type="text" name="keyword" class="form-control" placeholder="Search..."/>
               <span class="input-group-btn">
-                <button type='submit' name='search' id='search-btn' class="btn btn-flat"><i class="fa fa-search"></i></button>
+                <button type='submit' id='search-btn' class="btn btn-flat"><i class="fa fa-search"></i></button>
               </span>
             </div>
           </form>

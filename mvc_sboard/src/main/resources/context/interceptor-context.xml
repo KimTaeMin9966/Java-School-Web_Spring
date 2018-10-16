@@ -8,11 +8,38 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
 	<beans:bean id="signUpInterceptor" class="net.koreate.interceptor.SignUpInterceptor" />
+	<beans:bean id="loginInterceptor" class="net.koreate.interceptor.LoginInterceptor" />
+	<beans:bean id="checkCookieInterceptor" class="net.koreate.interceptor.CheckCookieInterceptor" />
+	<beans:bean id="authInterceptor" class="net.koreate.interceptor.AuthInterceptor" />
 	
 	<interceptors>
 		<interceptor>
 			<mapping path="/user/signUpPost" />
 			<beans:ref bean="signUpInterceptor" />
+		</interceptor>
+		
+		<interceptor>
+			<mapping path="/user/signInPost" />
+			<beans:ref bean="loginInterceptor" />
+		</interceptor>
+		
+		<interceptor>
+			<mapping path="/**" />
+			<!-- <exclude-mapping path="/**/*" /> -->
+			<!-- <exclude-mapping path="/user/*" /> -->
+			<exclude-mapping path="/user/signIn" />
+			<exclude-mapping path="/user/signInPost" />
+			<exclude-mapping path="/user/signUp" />
+			<exclude-mapping path="/user/signUpPost" />
+			<exclude-mapping path="/user/signOut" />
+			<beans:ref bean="checkCookieInterceptor" />
+		</interceptor>
+		
+		<interceptor>
+			<mapping path="/**/register"/>
+			<mapping path="/board/modify"/>
+			<mapping path="/board/delete"/>
+			<beans:ref bean="authInterceptor"/>
 		</interceptor>
 	</interceptors>
 	

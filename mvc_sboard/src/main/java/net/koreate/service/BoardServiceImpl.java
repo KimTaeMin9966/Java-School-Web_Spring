@@ -22,8 +22,22 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	@Transactional
-	public void registReply(ReplyBoardVo VO) throws Exception {
-		dao.registerReply(VO);
+	public void registReply(ReplyBoardVo VO, int uno) throws Exception {
+		/*UserVo userVo = dao.getUserByUNO(uno);
+		System.out.println(userVo);*/
+		
+		//String userName = userVo.getUname();
+		
+		/*Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put("boardVo", VO);
+		paramMap.put("userVo", userVo);*/
+		
+		Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put("title", VO.getTitle());
+		paramMap.put("content", VO.getContent());
+		paramMap.put("uno", uno);
+		
+		dao.registerReply(paramMap);
 		
 		/*int bno = VO.getBno();
 		dao.updateOrigin(bno);*/
@@ -68,8 +82,8 @@ public class BoardServiceImpl implements BoardService {
 		dao.updateReply(VO);
 		
 		VO.setOrigin(origin);
-		VO.setDepth(depth);
-		VO.setSeq(seq);
+		VO.setDepth(depth + 1);
+		VO.setSeq(seq + 1);
 		
 		dao.replyRegister(VO);
 	}
@@ -112,4 +126,5 @@ public class BoardServiceImpl implements BoardService {
 		dao.deleteFiles(bno);*/
 		dao.delete(bno);
 	}
+	
 }

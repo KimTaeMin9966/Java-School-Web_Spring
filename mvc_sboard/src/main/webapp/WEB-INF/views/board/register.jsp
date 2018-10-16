@@ -33,11 +33,6 @@
 							<textarea name="content" class="form-control" rows="3" placeholder="ENTER.. CONTENT"></textarea>						
 						</div>
 						<div class="form-group">
-							<label for="writer">WRITER</label>
-							<input type="text" name="writer" 
-								class="form-control" placeholder="ENTER writer"/>						
-						</div>
-						<div class="form-group">
 							<label>FILE DROP HERE</label>
 							<div class="fileDrop"></div>
 						</div>

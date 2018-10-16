@@ -57,6 +57,13 @@
 			<a href="/user/signUp">Sign Up</a>
 		</div>
 	</div>
+	<script type="text/javascript">
+		var message = '${message}';
+		
+		if(message != null && message != '') {
+			alert(message);
+		}
+	</script>
     <!-- jQuery 2.1.4 -->
     <script src="${pageContext.request.contextPath}/resources/plugins/jQuery/jQuery-2.1.4.min.js"></script>
     <!-- Bootstrap 3.3.2 JS -->
