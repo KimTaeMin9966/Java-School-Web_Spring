@@ -99,3 +99,4 @@ INSERT INTO tbl_user(uid, upw, uname) VALUES
 
 SELECT * FROM tbl_user;
 SELECT * FROM tbl_message;
+SELECT * FROM re_tbl_board;
