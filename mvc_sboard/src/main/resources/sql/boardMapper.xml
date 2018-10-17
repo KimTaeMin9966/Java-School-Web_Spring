@@ -36,8 +36,8 @@
 		keyColumn="bno"
 		parameterType="RBVO"> -->
 	<insert id="registerReply">
-		INSERT INTO re_tbl_board(title, content, writer)
-		VALUES(#{title}, #{content}, #{uno})
+		INSERT INTO re_tbl_board(title, content, writer, uno)
+		VALUES(#{title}, #{content}, #{writer}, #{uno})
 	</insert>
 	<update id="updateOrigin">
 		UPDATE re_tbl_board SET origin = LAST_INSERT_ID() WHERE bno = LAST_INSERT_ID()
@@ -93,11 +93,11 @@
 	 	VALUES(#{fullName}, #{bno})
 	 </insert>
 	
-	<select id="getUserByUNO" resultType="UVO">
+	<!-- <select id="getUserByUNO" resultType="UVO">
 		SELECT * FROM tbl_user
 		WHERE uno = #{uno}
 	</select>
-	<!-- <delete id="deleteComments">
+	<delete id="deleteComments">
 		DELETE FROM tbl_comment WHERE bno = #{bno}
 	</delete>
 	<delete id="deleteFiles">

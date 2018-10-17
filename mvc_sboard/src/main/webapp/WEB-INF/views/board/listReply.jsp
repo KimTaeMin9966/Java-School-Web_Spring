@@ -41,7 +41,9 @@
 					</div>
 					<div class="col-lg-3">
 						<input id="searchBtn" type="button" class="btn btn-warning" value="SEARCH" />
-						<input id="newBtn" type="button" class="btn btn-primary" value="NEWBOARD" />
+						<c:if test="${!empty userInfo}">
+							<input id="newBtn" type="button" class="btn btn-primary" value="NEWBOARD" />
+						</c:if>
 					</div>
 				</div>
 			</div>

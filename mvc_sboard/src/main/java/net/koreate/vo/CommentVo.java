@@ -9,6 +9,7 @@ public class CommentVo {
 	private String commentAuth;
 	private Date regdate;
 	private Date updatedate;
+	private int uno;
 
 	public int getCno() {
 		return cno;
@@ -58,6 +59,14 @@ public class CommentVo {
 		this.updatedate = updatedate;
 	}
 
+	public int getUno() {
+		return uno;
+	}
+
+	public void setUno(int uno) {
+		this.uno = uno;
+	}
+
 	@Override
 	public String toString() {
 		return "CommentVo { [ cno : " + this.cno
@@ -66,6 +75,7 @@ public class CommentVo {
 				+ " ], [ commentAuth : " + this.commentAuth
 				+ " ], [ regdate : " + this.regdate
 				+ " ], [ updatedate : " + this.updatedate
+				+ " ], [ uno : " + this.uno
 				+ " ] }";
 	}
 }

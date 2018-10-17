@@ -9,7 +9,7 @@ import net.koreate.vo.SearchCriteria;
 public interface BoardService {
 
 	// 게시물 작성
-	void registReply(ReplyBoardVo VO, int uno) throws Exception;
+	void registReply(ReplyBoardVo VO) throws Exception;
 	List<ReplyBoardVo> listReplyCriteria(SearchCriteria cri) throws Exception;
 	PageMaker getPageMaker(SearchCriteria cri) throws Exception;
 	void updateCnt(int bno) throws Exception;

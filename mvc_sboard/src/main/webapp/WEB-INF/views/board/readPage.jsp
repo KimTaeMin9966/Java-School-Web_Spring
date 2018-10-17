@@ -65,10 +65,14 @@
 				<div class="box-footer">
 					<div><hr/></div>
 					<ul class="mailbox-attachments clearfix uploadedList"></ul>
-					<input type="button" id="MODIFY" class="btn btn-warning" value="MODIFY"/>
-					<input type="button" id="DELETE" class="btn btn-danger" value="DELETE"/>
-					<input type="button" id="LIST" class="btn btn-primary" value="LIST"/>
-					<input type="button" id="REPLY" class="btn btn-default" value="REPLY"/>
+					<c:if test="${!empty userInfo}">
+						<c:if test="${userInfo.uno == boardVo.uno}">
+							<input type="button" class="btn btn-warning" id="modifyBtn" value="MODIFY"/>
+							<input type="button" class="btn btn-danger" id="deleteBtn" value="DELETE"/>
+						</c:if>
+					<input type="button" class="btn btn-default" id="replyBtn"value="REPLY"/>
+					</c:if>
+					<input type="button" class="btn btn-primary" id="listBtn" value="LIST"/>
 				</div>
 			</div>
 			<div class="row">
@@ -167,24 +171,42 @@
 		var formObj = $("#readForm");
 		console.log(formObj);
 		
-		$("#MODIFY").on("click", function() {
+		$("#modifyBtn").on("click", function() {
 			formObj.attr("action", "/board/modifyPage");
 			formObj.attr("method", "get");
 			formObj.submit();
 		});
 		
-		$("#DELETE").on("click", function() {
+		$("#deleteBtn").on("click", function() {
+			var commentCnt = ${boardVo.commentCnt};
+			
+			if(commentCnt > 0) {
+				alert('댓글이 달린 게시물을 삭제할수 없습니다.');
+				return;
+			}
+			
+			var arr = [];
+			$('.uploadedList li').each(function(index) {
+				arr.push($(this).attr('data-src'));
+			});
+			
+			if(arr.length > 0) {
+				$.post('/deleteAllFiles', {files : arr}, function(result) {
+					alert(result);
+				});
+			}
+			
 			formObj.attr("action", "/board/removePage");
 			formObj.submit();
 		});
 
-		$("#LIST").on("click", function() {
+		$("#listBtn").on("click", function() {
 			formObj.attr("action", "/board/listReply");
 			formObj.attr("method", "get");
 			formObj.submit();
 		});
 		
-		$("#REPLY").on("click", function() {
+		$("#replyBtn").on("click", function() {
 			formObj.attr("action", "/board/replyRegister");
 			formObj.attr("method", "get");
 			formObj.submit();

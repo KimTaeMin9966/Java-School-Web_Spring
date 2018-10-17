@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>   
 <!DOCTYPE html>
 <html>
   <head>
@@ -243,13 +243,13 @@
               <!-- User Account: style can be found in dropdown.less -->
               <li class="dropdown user user-menu">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                  <img src="${pageContext.request.contextPath}/resources/dist/img/puppy.jpg" class="user-image" alt="User Image"/>
-                  <span class="hidden-xs">똘이</span>
+                  <img src="${pageContext.request.contextPath}/resources/dist/img/puppy.png" class="user-image" alt="User Image"/>
+                  <span class="hidden-xs">${userInfo.uname}</span>
                 </a>
                 <ul class="dropdown-menu">
                   <!-- User image -->
                   <li class="user-header">
-                    <img src="${pageContext.request.contextPath}/resources/dist/img/puppy.jpg" class="img-circle" alt="User Image" />
+                    <img src="${pageContext.request.contextPath}/resources/dist/img/puppy.png" class="img-circle" alt="User Image" />
                     <p>
                       똘이 - 먹방 종결자
                       <small>Member since Nov. 2007</small>
@@ -267,17 +267,19 @@
                       <a href="#">Friends</a>
                     </div>
                   </li>
+                  
                   <!-- Menu Footer-->
+                  
                   <c:choose>
                   	<c:when test="${!empty userInfo}">
-	                  <li class="user-footer">
-	                    <div class="pull-left">
-	                      <a href="/" class="btn btn-default btn-flat">${userInfo.uname}</a>
-	                    </div>
-	                    <div class="pull-right">
-	                      <a href="/user/signOut" class="btn btn-default btn-flat">Sign Out</a>
-	                    </div>
-	                  </li>
+                  		<li class="user-footer">
+		                    <div class="pull-left">
+		                      <a href="/" class="btn btn-default btn-flat">${userInfo.uname}</a>
+		                    </div>
+		                    <div class="pull-right">
+		                      <a href="/user/signOut" class="btn btn-default btn-flat">Sign out</a>
+		                    </div>
+		                  </li>	
                   	</c:when>
                   	<c:otherwise>
 	                  <li class="user-footer">
@@ -290,6 +292,7 @@
 	                  </li>
                   </c:otherwise>
                   </c:choose>
+                  
                 </ul>
               </li>
               <!-- Control Sidebar Toggle Button -->
@@ -307,20 +310,27 @@
           <!-- Sidebar user panel -->
           <div class="user-panel">
             <div class="pull-left image">
-              <img src="${pageContext.request.contextPath}/resources/dist/img/puppy.jpg" class="img-circle" alt="User Image" />
+              <img src="${pageContext.request.contextPath}/resources/dist/img/puppy.png" class="img-circle" alt="User Image" />
             </div>
             <div class="pull-left info">
-              <p>똘이</p>
-              <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+              <p>${userInfo.uname}</p>
+              <c:choose>
+              	<c:when test="${!empty userInfo}">
+              		<a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+              	</c:when>
+              	<c:otherwise>
+              		<a href="#"><i class="fa fa-circle text-warning"></i> Offline</a>
+              	</c:otherwise>
+              </c:choose>              
             </div>
           </div>
           <!-- search form -->
-         <form action="/board/listReply" method="get" class="sidebar-form">
+          <form action="/board/listReply" method="get" class="sidebar-form">
             <div class="input-group">
             	<input type="hidden" name="searchType" value="tcw"/>
               <input type="text" name="keyword" class="form-control" placeholder="Search..."/>
               <span class="input-group-btn">
-                <button type='submit' id='search-btn' class="btn btn-flat"><i class="fa fa-search"></i></button>
+                <button type='submit' name='search' id='search-btn' class="btn btn-flat"><i class="fa fa-search"></i></button>
               </span>
             </div>
           </form>

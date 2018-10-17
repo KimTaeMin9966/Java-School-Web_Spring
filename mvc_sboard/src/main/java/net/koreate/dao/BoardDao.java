@@ -9,7 +9,7 @@ import net.koreate.vo.UserVo;
 
 public interface BoardDao {
 
-	void registerReply(Map<String, Object> paramMap) throws Exception;
+	void registerReply(ReplyBoardVo VO) throws Exception;
 	void updateOrigin() throws Exception;
 	List<ReplyBoardVo> listReplyCriteria(SearchCriteria cri) throws Exception;
 	int listReplyCount(SearchCriteria cri) throws Exception;

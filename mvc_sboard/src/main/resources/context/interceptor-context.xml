@@ -36,10 +36,12 @@
 		</interceptor>
 		
 		<interceptor>
-			<mapping path="/**/register"/>
-			<mapping path="/board/modify"/>
-			<mapping path="/board/delete"/>
-			<beans:ref bean="authInterceptor"/>
+			<mapping path="/board/*" />
+			<exclude-mapping path="/board/listReply" />
+			<exclude-mapping path="/board/readPage" />
+			<exclude-mapping path="/board/readDetail" />
+			<exclude-mapping path="/board/getAttach/*" />
+			<beans:ref bean="authInterceptor" />
 		</interceptor>
 	</interceptors>
 	

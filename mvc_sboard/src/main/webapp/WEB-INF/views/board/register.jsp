@@ -22,6 +22,7 @@
 				</div>
 				
 				<form id="registerForm" method="post">
+					<input type="hidden" name="uno" value="${userInfo.uno}"/>
 					<div class="box-body">
 						<div class="form-group">
 							<label for="title">Title</label>
@@ -35,6 +36,10 @@
 						<div class="form-group">
 							<label>FILE DROP HERE</label>
 							<div class="fileDrop"></div>
+						</div>
+						<div class="form-group">
+							<label for="writer">WRITER</label>
+							<input type="text" name="writer" class="form-control" placeholder="ENTER writer" value="${userInfo.uname}" readonly/>
 						</div>
 					</div>
 					<div class="box-footer">

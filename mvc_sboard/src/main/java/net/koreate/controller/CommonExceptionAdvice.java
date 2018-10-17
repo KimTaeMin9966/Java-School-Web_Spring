@@ -9,6 +9,7 @@ public class CommonExceptionAdvice {
 	
 	@ExceptionHandler(Exception.class)
 	private ModelAndView errorModelAndView(Exception e) {
+		e.printStackTrace();
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("error_common");
 		mav.addObject("exception", e);

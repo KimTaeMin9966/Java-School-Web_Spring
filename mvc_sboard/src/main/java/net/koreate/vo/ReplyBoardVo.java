@@ -16,6 +16,10 @@ public class ReplyBoardVo {
 	int viewcnt;
 	
 	String[] files;
+	
+	int commentCnt;
+	
+	int uno;
 
 	public int getBno() {
 		return bno;
@@ -104,7 +108,23 @@ public class ReplyBoardVo {
 	public void setFiles(String[] files) {
 		this.files = files;
 	}
+
+	public int getCommentCnt() {
+		return commentCnt;
+	}
 	
+	public void setCommentCnt(int commentCnt) {
+		this.commentCnt = commentCnt;
+	}
+	
+	public int getUno() {
+		return uno;
+	}
+
+	public void setUno(int uno) {
+		this.uno = uno;
+	}
+
 	@Override
 	public String toString() {
 		return "ReplyBoardVo { [ bno = " + this.bno
@@ -117,6 +137,7 @@ public class ReplyBoardVo {
 				+ " ], [ " + "regdate = " + this.regdate
 				+ " ], [ " + "updatedate = " + this.updatedate
 				+ " ], [ " + "viewcnt = " + this.viewcnt
+				+ " ], [ " + "uno = " + this.uno
 				+ " ], files = { [ " + Arrays.toString(files)
 				+ " ] } }";
 	}
