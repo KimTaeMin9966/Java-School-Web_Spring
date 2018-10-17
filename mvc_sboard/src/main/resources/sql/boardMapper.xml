@@ -75,8 +75,8 @@
 		WHERE origin = #{origin} AND seq > #{seq}
 	</update>
 	<insert id="replyRegister">
-		INSERT INTO re_tbl_board(title, content, writer, origin, depth, seq)
-		VALUES(#{title}, #{content}, #{writer}, #{origin}, #{depth}, #{seq})
+		INSERT INTO re_tbl_board(title, content, writer, origin, depth, seq, uno)
+		VALUES(#{title}, #{content}, #{writer}, #{origin}, #{depth}, #{seq}, #{uno})
 	</insert>
 	<update id="update">
 		UPDATE re_tbl_board SET title = #{title}, content = #{content} 
@@ -93,6 +93,9 @@
 	 	VALUES(#{fullName}, #{bno})
 	 </insert>
 	
+	<select id="getCommentCnt" resultType="int">
+		SELECT COUNT(bno) FROM tbl_comment WHERE bno = #{bno}
+	</select>
 	<!-- <select id="getUserByUNO" resultType="UVO">
 		SELECT * FROM tbl_user
 		WHERE uno = #{uno}

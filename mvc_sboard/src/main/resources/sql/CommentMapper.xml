@@ -5,8 +5,8 @@
 
 <mapper namespace="net.koreate.dao.CommentDao">
 	<insert id="create">
-		INSERT INTO tbl_comment(bno, commentText, commentAuth)
-		VALUES(#{bno}, #{commentText}, #{commentAuth})
+		INSERT INTO tbl_comment(bno, commentText, commentAuth, uno)
+		VALUES(#{bno}, #{commentText}, #{commentAuth}, #{uno})
 	</insert>
 	<select id="list" resultType="CVO">
 		SELECT * FROM tbl_comment WHERE bno = #{bno}

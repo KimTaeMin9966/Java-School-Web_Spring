@@ -33,7 +33,10 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public List<ReplyBoardVo> listReplyCriteria(SearchCriteria cri) throws Exception {
-		return dao.listReplyCriteria(cri);
+		List<ReplyBoardVo> list = dao.listReplyCriteria(cri);
+		
+		for(ReplyBoardVo vo : list) vo.setCommentCnt(dao.getCommentCnt(vo.getBno()));
+		return list;
 	}
 
 	@Override
@@ -53,6 +56,7 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public ReplyBoardVo readReply(int bno) throws Exception {
 		ReplyBoardVo VO = dao.readReply(bno);
+		VO.setCommentCnt(dao.getCommentCnt(bno));
 		return VO;
 	}
 

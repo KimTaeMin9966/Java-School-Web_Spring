@@ -69,7 +69,7 @@
 											<c:forEach var="i" begin="1" end="${boardVo.depth}">&nbsp;&nbsp;&nbsp;&nbsp;</c:forEach>
 											<span class="glyphicon glyphicon-chevron-right"></span>&nbsp;
 										</c:if>
-										${boardVo.title}
+										${boardVo.title} [${boardVo.commentCnt}]
 									</a>
 								</td>
 								<td>${boardVo.writer}</td>

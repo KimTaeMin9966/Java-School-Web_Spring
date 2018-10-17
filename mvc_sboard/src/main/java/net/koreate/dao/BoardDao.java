@@ -24,5 +24,6 @@ public interface BoardDao {
 	void replaceAttach(Map<String, Object> map) throws Exception;
 	void delete(int bno) throws Exception;
 	UserVo getUserByUNO(int uno) throws Exception;
+	int getCommentCnt(int bno) throws Exception;
 
 }

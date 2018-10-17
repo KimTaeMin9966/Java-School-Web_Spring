@@ -77,24 +77,26 @@
 			</div>
 			<div class="row">
 				<div class="col-md-12">
-					<div class="box">
-						<div class="box-header with-border">
-							<h3 class="box-title">ADD NEW COMMENT</h3>
+					<c:if test="${!empty userInfo}">
+						<div class="box">
+							<div class="box-header with-border">
+								<h3 class="box-title">ADD NEW COMMENT</h3>
+							</div>
+							<div class="box-body">
+								<div class="form-group">
+									<label>WRITER</label>
+									<input type="text" class="form-control" name="commentAuth" id="newCommentAuth" placeholder="USER" value="${userInfo.uname}" readonly />
+								</div>
+								<div class="form-group">
+									<label>COMMENT TEXT</label>
+									<input type="text" class="form-control" name="commentText" id="newCommentText" placeholder="CONTENT"/>
+								</div>
+								<div class="box-footer">
+									<input type="button" class="btn btn-primary" id="commentAddBtn" value="ADD COMMENT"/>
+								</div>
+							</div>
 						</div>
-						<div class="box-body">
-							<div class="form-group">
-								<label>WRITER</label>
-								<input type="text" class="form-control" name="commentAuth" id="newCommentAuth" placeholder="USER"/>
-							</div>
-							<div class="form-group">
-								<label>COMMENT TEXT</label>
-								<input type="text" class="form-control" name="commentText" id="newCommentText" placeholder="CONTENT"/>
-							</div>
-							<div class="box-footer">
-								<input type="button" class="btn btn-primary" id="commentAddBtn" value="ADD COMMENT"/>
-							</div>
-						</div>
-					</div>
+					</c:if>
 				</div>
 			</div>
 			<div class="row">
@@ -106,7 +108,7 @@
 						<div class="box-body">
 							<ul class="timeline">
 								<li class="time-label" id="commentDiv">
-									<span class="bg-green">COMMENT LIST</span>
+									<span class="bg-green">COMMENT LIST<small id="commentCntSmall">[${boardVo.commentCnt}]</small></span>
 								</li>
 							</ul>
 							<div class="text-center">
@@ -150,7 +152,11 @@
 				<h3 class="timeline-header"><strong>{{cno}}</strong> - {{commentAuth}}</h3>
 				<div class="timeline-body">{{commentText}}</div>
 				<div class="timeline-footer">
-					<a class="btn btn-primary btn-xs" data-toggle="modal" data-target="#modifyModal">Modify</a>
+					{{#isCheckAuth uno}}
+						<a class="btn btn-primary btn-xs" data-toggle="modal" data-target="#modifyModal">Modify</a>
+					{{else}}
+						댓글 작성자가 아닙니다.
+					{{/isCheckAuth}}
 				</div>
 			</div>
 		</li>
@@ -221,12 +227,20 @@
 		return year + "/" + month + "/" + date;
 	});
 	
+	Handlebars.registerHelper('isCheckAuth', function(uno, options) {
+		var userUno = '${userInfo.uno}';
+		
+		if(userUno == uno) { return options.fn(this); }
+		else { return options.inverse(this); }
+	});
+	
 	function getPage(pageInfo) {
 		//pageInfo : /comments/bno/page
 		$.getJSON(pageInfo, function(data) {
 			printPage(data.list, $('#commentDiv'), $('#template'));
 			//printPaging(data.pageMaker, $("#pagination"));
 			$("#modifyModal").modal("hide");
+			$("#commentCntSmall").html("[ " + data.pageMaker.totalCount + " ]");
 		});
 	}
 	
@@ -243,16 +257,16 @@
 		var str = "";
 		
 		if(pageMaker.prev) {
-			str+= "<li><a href='" + (pageMaker.startPage - 1) + "'> << </a></li>";
+			str += "<li><a href='" + (pageMaker.startPage - 1) + "'> << </a></li>";
 		}
 		
 		for(var i = pageMaker.startPage, len = pageMaker.endPage; i<= len; i++) {
 			var strClass = (pageMaker.cri.page == i) ? 'class=active' : '';
-			str+= "<li " + strClass + "><a href='" + i + "'>" + i + "</a></li>";
+			str += "<li " + strClass + "><a href='" + i + "'>" + i + "</a></li>";
 		}			
 		
 		if(pageMaker.next) {
-			str+= "<li><a href='" + (pageMaker.endPage + 1 ) + "'> >> </a></li>";
+			str += "<li><a href='" + (pageMaker.endPage + 1 ) + "'> >> </a></li>";
 		}
 		target.html(str);
 	}
@@ -272,6 +286,7 @@
 	$("#commentAddBtn").on("click",function() {
 		var auth = $("#newCommentAuth").val();
 		var text = $("#newCommentText").val();
+		var uno = "${userInfo.uno}";
 		
 		$.ajax({
 			type: 'post',
@@ -284,17 +299,17 @@
 			data : JSON.stringify({
 				bno : bno,
 				commentText : text,
-				commentAuth : auth
+				commentAuth : auth,
+				uno : uno
 			}),
 			success : function(result) {
 				if(result == "SUCCESS") {
 					alert("등록 완료");
+
+					$("#newCommentText").val("");
 					
 					var pageInfo = "/comments/" + bno + "/" + commentPage;
 					getPage(pageInfo);
-					
-					$("#newCommentAuth").val("");
-					$("#newCommentText").val("");
 				}
 			}
 		});
@@ -318,7 +333,9 @@
 				"X-HTTP-Method-Override": "PUT"
 			},
 			dataType : "text",
-			data : JSON.stringify({commentText : commentText}),
+			data : JSON.stringify({
+				commentText : commentText
+			}),
 			success : function(result){
 				if(result == "SUCCESS") {
 					alert("작업 성공");
@@ -341,7 +358,9 @@
 				"X-HTTP-Method-Override": "DELETE"
 			},
 			dataType : "text",
-			data : JSON.stringify({commentText : commentText}),
+			data : JSON.stringify({
+				commentText : commentText
+			}),
 			success : function(result){
 				if(result == "SUCCESS") {
 					alert("작업 성공");

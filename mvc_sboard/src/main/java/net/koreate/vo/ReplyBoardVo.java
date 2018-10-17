@@ -138,6 +138,7 @@ public class ReplyBoardVo {
 				+ " ], [ " + "updatedate = " + this.updatedate
 				+ " ], [ " + "viewcnt = " + this.viewcnt
 				+ " ], [ " + "uno = " + this.uno
+				+ " ], [ " + "commentCnt = " + this.commentCnt
 				+ " ], files = { [ " + Arrays.toString(files)
 				+ " ] } }";
 	}

@@ -8,32 +8,51 @@ import javax.servlet.http.HttpSession;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
-import net.koreate.service.UserService;
+import net.koreate.service.BoardService;
+import net.koreate.vo.ReplyBoardVo;
+import net.koreate.vo.UserVo;
 
 public class AuthInterceptor extends HandlerInterceptorAdapter {
 	
 	@Inject
-	UserService service;
+	BoardService service;
 	
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 		System.out.println("AuthInterceptor preHandle START");
+
+		String requestInfo = request.getRequestURI();
+		System.out.println("requestInfo : " + requestInfo);
 		
 		HttpSession session = request.getSession();
+		Object user = session.getAttribute("userInfo");
 		
-		if (session.getAttribute("userInfo") == null) {
-			String uri = request.getRequestURI();
-			String query = request.getQueryString();
-			
-			if (query == null || query.equals("null")) { query = ""; }
-			else { query = "?" + query; }
-			
-			if(request.getMethod().equals("GET")) { System.out.println("요청 : " + (uri + query)); session.setAttribute("dest", (uri + query)); }
-			
+		if (user == null) {
 			response.sendRedirect("/user/signIn");
 			return false;
+		} else {
+			UserVo userVo = (UserVo)user;
+			int uno = userVo.getUno();
+			
+			String bno = request.getParameter("bno");
+			System.out.println("bno : " + bno);
+			
+			if(bno != null && !bno.equals("")) {
+				int num = Integer.parseInt(bno);
+				ReplyBoardVo boardVo = service.readReply(num);
+			
+				if(requestInfo.equals("/board/replyRegister")) { return true; }
+				
+				if(uno == boardVo.getUno()) { System.out.println("사용자 정보가 일치합니다."); return true; }
+				else {
+					if (requestInfo.equals("/board/replyRegister")) { return true; }
+					else { response.sendRedirect("/board/readPage?bno=" + num); return false; }
+				}
+			} else {
+				if(requestInfo.equals("/board/register")) { return true; }
+				else { response.sendRedirect("/board/listReply"); return false; }
+			}
 		}
-		return true;
 	}
 	
 	@Override
