@@ -40,23 +40,23 @@
 		</c:forEach>
 	</table>
 	<ul>
-		<c:if test="${!empty PageMaker}">
-			<c:if test="${PageMaker.prev}">
+		<c:if test="${!empty pageMaker}">
+			<c:if test="${pageMaker.prev}">
 			<li>
-				<a href="/board/listPage?page=${PageMaker.startPage - 1}&perPageNum=${cri.perPageNum}">
+				<a href="/board/listPage?page=${pageMaker.startPage - 1}&perPageNum=${cri.perPageNum}">
 				&laquo;</a>
 			</li>
 			</c:if>
 			
-			<c:forEach var ="i" begin="${PageMaker.startPage}" end="${PageMaker.endPage}">
+			<c:forEach var ="i" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
 				<li>
 				<a href="/board/listPage?page=${i}&perPageNum=${cri.perPageNum}">${i}</a>
 				</li>
 			</c:forEach>
 			
-			<c:if test="${PageMaker.next}">
+			<c:if test="${pageMaker.next}">
 			<li>
-				<a href="/board/listPage?page=${PageMaker.endPage + 1}&perPageNum=${cri.perPageNum}">
+				<a href="/board/listPage?page=${pageMaker.endPage + 1}&perPageNum=${cri.perPageNum}">
 				&raquo;</a>
 			</li>
 			</c:if>
