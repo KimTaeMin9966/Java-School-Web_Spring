@@ -100,3 +100,70 @@ INSERT INTO tbl_user(uid, upw, uname) VALUES
 SELECT * FROM tbl_user;
 SELECT * FROM tbl_message;
 SELECT * FROM re_tbl_board;
+
+CREATE TABLE made_wedding (
+	mwid VARCHAR(50) NOT NULL,
+	mwpw VARCHAR(50) NOT NULL,
+	mwname VARCHAR(100) NOT NULL,
+	regdate TIMESTAMP NOT NULL DEFAULT NOW(),
+    PRIMARY KEY(mwid)
+);
+
+INSERT INTO made_wedding(mwid, mwpw, mwname)
+VALUES ('master', 'master', '마스터');
+
+INSERT INTO made_wedding(mwid, mwpw, mwname) VALUES
+('id001', 'id001', 'DR.STRANGE'),
+('id002', 'id002', 'IRON MAN'),
+('id003', 'id003', 'THOR'),
+('id004', 'id004', 'ANT MAN');
+
+CREATE TABLE `mydata`.`made_wedding_step1` (
+  `memberID` varchar(50) NOT NULL,
+  `list_day` varchar(500) NOT NULL,
+  `list_week` varchar(500) NOT NULL,
+  `list_area` varchar(500) NOT NULL,
+  `list_etc` varchar(500) NOT NULL,
+  PRIMARY KEY (`memberID`),
+  CONSTRAINT `step1_memberID` FOREIGN KEY (`memberID`) REFERENCES `made_wedding` (`mwid`)
+);
+
+CREATE TABLE `mydata`.`made_wedding_step2` (
+  `memberID` varchar(50) NOT NULL,
+  `list_day` varchar(500) NOT NULL,
+  `list_week` varchar(500) NOT NULL,
+  `list_area` varchar(500) NOT NULL,
+  `list_etc` varchar(500) NOT NULL,
+  PRIMARY KEY (`memberID`),
+  CONSTRAINT `step2_memberID` FOREIGN KEY (`memberID`) REFERENCES `made_wedding` (`mwid`)
+);
+
+CREATE TABLE `mydata`.`made_wedding_step3` (
+  `memberID` varchar(50) NOT NULL,
+  `list_day` varchar(500) NOT NULL,
+  `list_week` varchar(500) NOT NULL,
+  `list_area` varchar(500) NOT NULL,
+  `list_etc` varchar(500) NOT NULL,
+  PRIMARY KEY (`memberID`),
+  CONSTRAINT `step3_memberID` FOREIGN KEY (`memberID`) REFERENCES `made_wedding` (`mwid`)
+);
+
+CREATE TABLE `mydata`.`made_wedding_step4` (
+  `memberID` varchar(50) NOT NULL,
+  `list_day` varchar(500) NOT NULL,
+  `list_week` varchar(500) NOT NULL,
+  `list_area` varchar(500) NOT NULL,
+  `list_etc` varchar(500) NOT NULL,
+  PRIMARY KEY (`memberID`),
+  CONSTRAINT `step4_memberID` FOREIGN KEY (`memberID`) REFERENCES `made_wedding` (`mwid`)
+);
+
+DROP TABLE made_wedding_step1;
+DROP TABLE made_wedding_step2;
+DROP TABLE made_wedding_step3;
+DROP TABLE made_wedding_step4;
+
+INSERT INTO made_wedding_step1
+values('id001', '1', '1', '1', '1');
+
+SELECT * FROM made_wedding WHERE mwid = 'id001' AND mwpw = 'io';
