@@ -101,7 +101,7 @@ SELECT * FROM tbl_user;
 SELECT * FROM tbl_message;
 SELECT * FROM re_tbl_board;
 
-CREATE TABLE made_wedding (
+CREATE TABLE made_wedding_member (
 	mwid VARCHAR(50) NOT NULL,
 	mwpw VARCHAR(50) NOT NULL,
 	mwname VARCHAR(100) NOT NULL,
@@ -109,14 +109,12 @@ CREATE TABLE made_wedding (
     PRIMARY KEY(mwid)
 );
 
-INSERT INTO made_wedding(mwid, mwpw, mwname)
-VALUES ('master', 'master', '마스터');
-
-INSERT INTO made_wedding(mwid, mwpw, mwname) VALUES
-('id001', 'id001', 'DR.STRANGE'),
-('id002', 'id002', 'IRON MAN'),
-('id003', 'id003', 'THOR'),
-('id004', 'id004', 'ANT MAN');
+INSERT INTO made_wedding_member(mwid, mwpw, mwname, mwmobile, mwbirth) VALUES
+('master', 'master', '마스터', '01000000000', '990101'),
+('id001', 'id001', 'DR.STRANGE', '01011111111', '990101'),
+('id002', 'id002', 'IRON MAN', '01022222222', '990101'),
+('id003', 'id003', 'THOR', '01033333333', '990101'),
+('id004', 'id004', 'ANT MAN', '01044444444', '990101');
 
 CREATE TABLE `mydata`.`made_wedding_step1` (
   `memberID` varchar(50) NOT NULL,
@@ -125,7 +123,7 @@ CREATE TABLE `mydata`.`made_wedding_step1` (
   `list_area` varchar(500) NOT NULL,
   `list_etc` varchar(500) NOT NULL,
   PRIMARY KEY (`memberID`),
-  CONSTRAINT `step1_memberID` FOREIGN KEY (`memberID`) REFERENCES `made_wedding` (`mwid`)
+  CONSTRAINT `step1_memberID` FOREIGN KEY (`memberID`) REFERENCES `made_wedding_member` (`mwid`)
 );
 
 CREATE TABLE `mydata`.`made_wedding_step2` (
@@ -135,7 +133,7 @@ CREATE TABLE `mydata`.`made_wedding_step2` (
   `list_area` varchar(500) NOT NULL,
   `list_etc` varchar(500) NOT NULL,
   PRIMARY KEY (`memberID`),
-  CONSTRAINT `step2_memberID` FOREIGN KEY (`memberID`) REFERENCES `made_wedding` (`mwid`)
+  CONSTRAINT `step2_memberID` FOREIGN KEY (`memberID`) REFERENCES `made_wedding_member` (`mwid`)
 );
 
 CREATE TABLE `mydata`.`made_wedding_step3` (
@@ -145,7 +143,7 @@ CREATE TABLE `mydata`.`made_wedding_step3` (
   `list_area` varchar(500) NOT NULL,
   `list_etc` varchar(500) NOT NULL,
   PRIMARY KEY (`memberID`),
-  CONSTRAINT `step3_memberID` FOREIGN KEY (`memberID`) REFERENCES `made_wedding` (`mwid`)
+  CONSTRAINT `step3_memberID` FOREIGN KEY (`memberID`) REFERENCES `made_wedding_member` (`mwid`)
 );
 
 CREATE TABLE `mydata`.`made_wedding_step4` (
@@ -155,7 +153,7 @@ CREATE TABLE `mydata`.`made_wedding_step4` (
   `list_area` varchar(500) NOT NULL,
   `list_etc` varchar(500) NOT NULL,
   PRIMARY KEY (`memberID`),
-  CONSTRAINT `step4_memberID` FOREIGN KEY (`memberID`) REFERENCES `made_wedding` (`mwid`)
+  CONSTRAINT `step4_memberID` FOREIGN KEY (`memberID`) REFERENCES `made_wedding_member` (`mwid`)
 );
 
 DROP TABLE made_wedding_step1;
@@ -164,6 +162,6 @@ DROP TABLE made_wedding_step3;
 DROP TABLE made_wedding_step4;
 
 INSERT INTO made_wedding_step1
-values('id001', '1', '1', '1', '1');
+values('master', '1', '1', '1', '1');
 
 SELECT * FROM made_wedding WHERE mwid = 'id001' AND mwpw = 'io';
